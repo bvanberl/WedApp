@@ -1,4 +1,4 @@
-var Nerd = require('./models/guest');
+var Guest = require('./models/guest');
 
     module.exports = function(app) {
 

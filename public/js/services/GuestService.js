@@ -7,7 +7,7 @@ angular.module('GuestService', []).factory('Guest', ['$http', function($http) {
 
         // call to POST and create a new guest
         create : function(guestData) {
-            return $http.post('/api/nerds', guestData);
+            return $http.post('/api/guests', guestData);
         },
 
         // call to DELETE a guest

@@ -3,3 +3,23 @@
 
     <p>{{ tagline }}</p>
 </div>
+<div>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <th>Name of Guest(s)</th>
+      <th>Response received</th>
+      <th>Number Attending</th>
+      <th>Authorization Code</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="g in guests">
+        <td>{{ g.name }}</td>
+        <td>{{ dispResponse(g.responded) }}</td>
+        <td>{{ dispNum(g.responded, g.numAttending) }}</td>
+        <td>{{ g.authCode }}</td>
+        <td><span class="table-remove glyphicon glyphicon-remove" id="removeBtn"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

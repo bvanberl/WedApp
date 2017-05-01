@@ -1,6 +1,6 @@
-angular.module('sampleApp',
+angular.module('wedapp',
   ['ngRoute',
   'appRoutes',
-  'MainCtrl',
-  'NerdCtrl', 
-  'NerdService']);
+  'HomeCtrl',
+  'GuestCtrl',
+  'GuestService']);
