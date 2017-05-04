@@ -2,6 +2,10 @@ angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest'
 
     get();
     $scope.tagline = "Number of guests attending is unknown.";
+    $scope.iguestname = "";
+    $scope.irespondedflag = false;
+    $scope.inumattending = 0;
+    $scope.modal = document.getElementById('themodal');
 
     // Return yes if guest has responded; return no otherwise
     $scope.dispResponse = function(responded){
@@ -28,6 +32,19 @@ angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest'
       }
     }
 
+    $scope.showForm = function() {
+      $scope.modal.style.display = 'block';
+    }
+
+    $scope.addGuest = function(){
+      Guest.create(id)
+        .then(function (response) {
+          get(); // Refresh table
+        }, function (error) {
+          $scope.status = 'Unable to delete guest data: ' + error.message;
+        });
+    }
+
     // Get all guests
     function get() {
         Guest.get()
@@ -37,6 +54,19 @@ angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest'
             }, function (error) {
                 $scope.status = 'Unable to load guest data: ' + error.message;
             });
+    }
+
+    $scope.delete = function(id) {
+      Guest.delete(id)
+        .then(function (response) {
+          get(); // Refresh table
+        }, function (error) {
+          $scope.status = 'Unable to delete guest data: ' + error.message;
+        });
+    }
+
+    $scope.update = function(id) {
+
     }
 
 
