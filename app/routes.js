@@ -6,8 +6,7 @@ var Guest = require('./models/guest');
         // handle things like api calls
         // authentication routes
 
-        // sample api route
-        app.get('/api/guests', function(req, res) {
+        /*app.get('/api/guests', function(req, res) {
 
             // get all guests in the database
             Guest.find(function(err, guests) {
@@ -19,7 +18,7 @@ var Guest = require('./models/guest');
 
                 res.json(guests); // return all guests in JSON format
             });
-        });
+        });*/
 
         // route to handle creating goes here (app.post)
         // route to handle delete goes here (app.delete)
@@ -29,5 +28,6 @@ var Guest = require('./models/guest');
         app.get('*', function(req, res) {
             res.sendfile('./public/index.html'); // load our public/index.html file
         });
+
 
     };

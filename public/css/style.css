@@ -14,10 +14,10 @@ td.min-size {
 }
 
 input[type=text], input[type=password] {
-    width: 100%;
+    max-width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
-    display: inline-block;
+    display: block;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
@@ -70,7 +70,7 @@ span.psw {
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 40%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */
@@ -93,6 +93,12 @@ span.psw {
 .animate {
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s
+}
+
+.centeritem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @-webkit-keyframes animatezoom {

@@ -1,8 +1,7 @@
-angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
     $routeProvider
 
-        // home page
         .when('/', {
             templateUrl: 'views/home.html',
             controller: 'HomeController'

@@ -5,7 +5,7 @@ angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest'
     $scope.iguestname = "";
     $scope.irespondedflag = false;
     $scope.inumattending = 0;
-    $scope.modal = document.getElementById('themodal');
+    $scope.modal = document.getElementById('new-guest-modal');
 
     // Return yes if guest has responded; return no otherwise
     $scope.dispResponse = function(responded){
@@ -32,17 +32,52 @@ angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest'
       }
     }
 
+    $scope.randomString = function(length, chars) {
+      var result = '';
+      for (var i = length; i > 0; --i) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return result;
+    }
+
+    $scope.responseBehaviour = function() {
+      var checked = document.getElementById('response-check').checked;
+      var numInput = document.getElementById('num-input');
+      if(checked == true) {
+        numInput.setAttribute("disabled", false);
+        numInput.setAttribute("placeholder", "Number attending");
+      }
+      else {
+        numInput.setAttribute("disabled", true);
+        numInput.setAttribute("placeholder", "0");
+      }
+    }
+
     $scope.showForm = function() {
-      $scope.modal.style.display = 'block';
+      $scope.modal.modal("show");
+    }
+
+    $scope.hideForm = function() {
+      $scope.modal.style.display = 'none';
     }
 
     $scope.addGuest = function(){
-      Guest.create(id)
+      var code = randomString(4, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      if($scope.irespondedflag == false){
+        $scope.inumattending = 0;       // If response not received, assume 0 people are in attendance
+      }
+      var guestData =
+        '{"name":"' + $scope.iguestname + '",' +
+        '"responded":"' + $scope.responded + '",' +
+        '"numAttending":"' + $scope.inumattending + '",' +
+        '"authCode":"' + code + '"' +
+      '}'; // The guest data
+      Guest.create(guestData)
         .then(function (response) {
           get(); // Refresh table
         }, function (error) {
           $scope.status = 'Unable to delete guest data: ' + error.message;
-        });
+        }); // Add new guest to database.
     }
 
     // Get all guests
