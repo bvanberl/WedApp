@@ -10,6 +10,12 @@ angular.module('GuestService', []).factory('Guest', ['$http', function($http) {
             return $http.post('/api/guests', guestData);
         },
 
+        // call to PUT and update a guest
+        update : function(guestData) {
+          var g = jQuery.parseJSON(guestData);
+            return $http.put('/api/guests/' + g._id, guestData);
+        },
+
         // call to DELETE a guest
         delete : function(id) {
             return $http.delete('/api/guests/' + id);

@@ -7,10 +7,11 @@ var methodOverride = require('method-override');
 
 // COLLECTIONS ================================================
 var Guest     = require('./app/models/guest');
+var Announcement     = require('./app/models/announcement');
 
 
 var db = require('./config/db');
-mongoose.connect(db.url); // connect to our mongoDB database
+mongoose.connect(db.url); // connect to our mongoDB data
 var port = process.env.PORT || 8080; // set port
 
 
@@ -24,6 +25,7 @@ app.use(express.static(__dirname + '/public')); // set the static files location
 
 var router = express.Router();
 
+// GUESTS ROUTES ===================================================================================================================
 router.route('/guests')
     // create a guest (accessed at POST http://localhost:8080/api/guests)
     .post(function(req, res) {
@@ -80,19 +82,79 @@ router.route('/guests/:guest_id') // Get a guest by his/her ID
             res.json({ message: 'Successfully deleted' });
         });
     });
+
+
+// ANNOUNCEMENT ROUTES
+router.route('/announcements')
+    // create an announcement (accessed at POST http://localhost:8080/api/announcements)
+    .post(function(req, res) {
+        var announcement = new Announcement();      // create a new instance of the announcement model
+        console.log(req.body.datetime + ", MESSAGE:" + req.body.content);
+        announcement.datetime = req.body.datetime;
+        announcement.content = req.body.content;
+        // save the announcement and check for errors
+        announcement.save(function(err) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Announcement created!' });
+        });
+    })
+    // get all the announcements (accessed at GET http://localhost:8080/api/announcements)
+    .get(function(req, res) {
+        Announcement.find(function(err, announcements) {
+            if (err)
+                res.send(err);
+            res.json(announcements);
+        });
+    });
+router.route('/announcements/:announcement_id') // Get a announcement by his/her ID
+    .get(function(req, res) {
+        Announcement.findById(req.params.announcement_id, function(err, announcement) {
+            if (err)
+                res.send(err);
+            res.json(announcement);
+        });
+    })
+    .put(function(req, res) {
+        // use our bear model to find the bear we want
+        Announcement.findById(req.params.announcement_id, function(err, announcement) {
+            if (err)
+                res.send(err);
+            announcement.datetime = req.body.datetime;
+            announcement.content = req.body.content;
+            announcement.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'Announcement updated!' });
+            });
+        });
+    })
+    .delete(function(req, res) {
+        Announcement.remove({
+            _id: req.params.announcement_id
+        }, function(err, announcement) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Announcement successfully deleted' });
+        });
+    });
+
+
+
 // REGISTER ROUTES =========================================================
 // all routes will be prefixed with /api
 app.use('/api', router);
 
 router.get('*', function(req, res) {
-    res.sendfile('./public/index.html'); // load our public/index.html file
+    res.sendfile('./public/index.html', { root: __dirname }); // load our public/index.html file
 });
-
-
 
 
 // routes ==================================================
 //require('./app/routes')(app); // configure our routes
+app.use(function(req, res) {
+    res.sendfile(__dirname + '/public/index.html');
+});
 
 // start app ===============================================
 // startup our app at http://localhost:8080

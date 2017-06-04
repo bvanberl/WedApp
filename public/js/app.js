@@ -1,6 +1,9 @@
 angular.module('wedapp',
   ['ngRoute',
+  'ngMaterial',
   'appRoutes',
   'HomeCtrl',
   'GuestCtrl',
-  'GuestService']);
+  'GuestService',
+  'AnnouncementCtrl',
+  'AnnouncementService']);

@@ -1,9 +1,9 @@
-angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest', function($scope, Guest) {
+angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$scope', 'Guest', '$mdDialog', function($scope, Guest, $mdDialog) {
 
     get();
     $scope.tagline = "Number of guests attending is unknown.";
     $scope.iguestname = "";
-    $scope.irespondedflag = false;
+    $scope.irespondedflag = true;
     $scope.inumattending = 0;
     $scope.modal = document.getElementById('new-guest-modal');
 
@@ -32,51 +32,64 @@ angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest'
       }
     }
 
-    $scope.randomString = function(length, chars) {
-      var result = '';
-      for (var i = length; i > 0; --i) {
-        result += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return result;
+
+    $scope.openNewGuestModal = function(ev) {
+      //$scope.modal.modal("show");
+      $mdDialog.show({
+        controller: NewGuestDialogController,
+        templateUrl: '../../views/modals/new-guest-modal.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      })
+      .then(function(guestData) {
+          $scope.addGuest(guestData);
+        }, function() {
+        });
     }
 
-    $scope.responseBehaviour = function() {
-      var checked = document.getElementById('response-check').checked;
-      var numInput = document.getElementById('num-input');
-      if(checked == true) {
-        numInput.setAttribute("disabled", false);
-        numInput.setAttribute("placeholder", "Number attending");
-      }
-      else {
-        numInput.setAttribute("disabled", true);
-        numInput.setAttribute("placeholder", "0");
-      }
+    $scope.openUpdateGuestModal = function(ev, i) {
+      //$scope.modal.modal("show");
+      var g = $scope.guests[i];
+      $mdDialog.show({
+        locals:{
+          id: g._id,
+          name: g.name,
+          responded: g.responded,
+          numAttending: g.numAttending,
+          code: g.authCode
+        },
+        controller: UpdateGuestDialogController,
+        templateUrl: '../../views/modals/update-guest-modal.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      })
+      .then(function(guestData) {
+          $scope.updateGuest(guestData);
+        }, function() {
+        });
     }
 
-    $scope.showForm = function() {
-      $scope.modal.modal("show");
-    }
-
-    $scope.hideForm = function() {
-      $scope.modal.style.display = 'none';
-    }
-
-    $scope.addGuest = function(){
-      var code = randomString(4, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-      if($scope.irespondedflag == false){
-        $scope.inumattending = 0;       // If response not received, assume 0 people are in attendance
-      }
-      var guestData =
-        '{"name":"' + $scope.iguestname + '",' +
-        '"responded":"' + $scope.responded + '",' +
-        '"numAttending":"' + $scope.inumattending + '",' +
-        '"authCode":"' + code + '"' +
-      '}'; // The guest data
+    // Create new guest with data returned from hiding the modal.
+    $scope.addGuest = function(guestData){
       Guest.create(guestData)
         .then(function (response) {
           get(); // Refresh table
         }, function (error) {
-          $scope.status = 'Unable to delete guest data: ' + error.message;
+          $scope.status = 'Unable to create new guest: ' + error.message;
+        }); // Add new guest to database.
+    }
+
+    // Update the guest with data returned from hiding the modal.
+    $scope.updateGuest = function(guestData){
+      Guest.update(guestData)
+        .then(function (response) {
+          get(); // Refresh table
+        }, function (error) {
+          $scope.status = 'Unable to update guest: ' + error.message;
         }); // Add new guest to database.
     }
 
@@ -85,25 +98,108 @@ angular.module('GuestCtrl', []).controller('GuestController', ['$scope', 'Guest'
         Guest.get()
             .then(function (response) {
                 $scope.guests = response.data;
+                sortGuests('name', true);
                 $scope.tagline = $scope.getGuestCount() + " guests confirmed attending.";
             }, function (error) {
                 $scope.status = 'Unable to load guest data: ' + error.message;
             });
     }
 
-    $scope.delete = function(id) {
-      Guest.delete(id)
-        .then(function (response) {
-          get(); // Refresh table
-        }, function (error) {
-          $scope.status = 'Unable to delete guest data: ' + error.message;
-        });
+    /*
+    Comparator for sorting Guest objects
+    */
+    function sortGuests(prop, asc) {
+        $scope.guests = $scope.guests.sort(function(a, b) {
+        if (asc) {
+            return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+        } else {
+            return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+        }
+    });
+  }
+
+  $scope.delete = function(id) {
+    Guest.delete(id)
+      .then(function (response) {
+        get(); // Refresh table
+      }, function (error) {
+        $scope.status = 'Unable to delete guest data: ' + error.message;
+      });
+  }
+
+
+    function NewGuestDialogController($scope, $mdDialog) {
+      $scope.iguestname = "";
+      $scope.respbox = {
+        irespondedflag: true
+      };
+      $scope.inumattending = 0;
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.responseBehaviour = function() {
+        if(!$scope.respbox.irespondedflag) {
+          $scope.inumattending = 0;
+        }
+      }
+      $scope.submitData = function() {
+        var code = "";
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        for (var i = 0; i < 4; i++) {
+          code += chars[Math.floor(Math.random() * chars.length)];
+        }
+        var responded = "";
+        if($scope.respbox.irespondedflag == false){
+          $scope.inumattending = 0;       // If response not received, assume 0 people are in attendance
+        }
+        var guestData =
+          '{"name":"' + $scope.iguestname + '",' +
+          '"responded":"' + $scope.irespondedflag + '",' +
+          '"numAttending":"' + $scope.inumattending + '",' +
+          '"authCode":"' + code + '"' +
+        '}'; // The guest data
+        $mdDialog.hide(guestData);
+      };
     }
 
-    $scope.update = function(id) {
 
+    function UpdateGuestDialogController($scope, $mdDialog, id, name, responded, numAttending, code) {
+      $scope.iid = id;
+      $scope.iguestname = name;
+      $scope.respbox = {
+        irespondedflag: responded
+      };
+      $scope.inumattending = numAttending;
+      $scope.code = code;
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.responseBehaviour = function() {
+        if(!$scope.respbox.irespondedflag) {
+          $scope.inumattending = 0;
+        }
+      }
+      $scope.submitData = function() {
+        var responded = "";
+        if($scope.irespondedflag == false){
+          $scope.inumattending = 0;       // If response not received, assume 0 people are in attendance
+        }
+        var guestData =
+          '{"_id":"' + $scope.iid + '",' +
+          '"name":"' + $scope.iguestname + '",' +
+          '"responded":"' + $scope.irespondedflag + '",' +
+          '"numAttending":"' + $scope.inumattending + '",' +
+          '"authCode":"' + $scope.code + '"' +
+        '}'; // The guest data
+        $mdDialog.hide(guestData);
+      };
     }
-
 
 
 }]);

@@ -1,0 +1,17 @@
+<div layout="column">
+  <div class="col-lg-12">
+    <button ng-click="openNewAnnouncementModal($event)" class="btn btn-block btn-success"><span class="glyphicon glyphicon-plus"></span> New Announcement</button>
+  </div>
+  <md-list ng-cloak>
+    <md-subheader>Announcements</md-subheader>
+    <md-divider></md-divider>
+    <md-list-item class="md-2-line secondary-button-padding" ng-repeat="a in announcements" ng-click="null">
+      <div class="md-list-item-text" layout="column">
+        <h4>{{ a.datetime | date:"MM/dd/yyyy 'at' h:mma" }}</h4>
+        <p style="word-break:break-word">{{ a.content }}</p>
+        <span class="glyphicon glyphicon-edit hoverable-edit md-secondary" ng-click="openUpdateAnnouncementModal($event, $index)">
+        <span class="table-remove glyphicon glyphicon-remove hoverable-remove md-secondary" ng-click="delete(a._id)">
+      </div>
+    </md-list-item>
+  </md-list>
+</div>
