@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, user-scalable=no" />
     <base href="/index.html">
 
     <title>WedApp the web app</title>
@@ -34,8 +34,7 @@
 <body ng-app="wedapp" ng-cloak>
   <!-- Your application bootstrap  -->
 
-<div class="container">
-<md-content class="md-padding">
+
   <md-nav-bar
       md-selected-nav-item="currentNavItem"
       nav-bar-aria-label="navigation links">
@@ -92,9 +91,6 @@
     </nav>-->
 
     <!-- ANGULAR DYNAMIC CONTENT -->
-    <br><br>
     <div ng-view></div>
-</md-content>
-</div>
 </body>
 </html>

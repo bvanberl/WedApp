@@ -121,3 +121,33 @@ span.psw {
        width: 100%;
     }
 }
+
+html, body, .ng-scope, .container-fluid, .row {
+  height: 100%;
+}
+
+.bgimg {
+    background-image: url('../img/home_background.jpg');
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 25px;
+}
+
+/* Position text in the middle */
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Style the <hr> element */
+hr {
+    margin: auto;
+    width: 40%;
+}

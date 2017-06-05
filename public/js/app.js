@@ -1,4 +1,4 @@
-angular.module('wedapp',
+var app = angular.module('wedapp',
   ['ngRoute',
   'ngMaterial',
   'appRoutes',
@@ -7,3 +7,4 @@ angular.module('wedapp',
   'GuestService',
   'AnnouncementCtrl',
   'AnnouncementService']);
+app.value('WEDDING_DATE', new Date("Mar 16, 2019 14:00:00"));
