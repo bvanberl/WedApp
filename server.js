@@ -4,7 +4,6 @@ var app            = express();
 var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
-var multer         = require('multer');
 var path           = require('path');
 var cookieParser   = require('cookie-parser');
 var passport       = require('passport');
@@ -26,19 +25,6 @@ mongoose.connect(db.url); // connect to our mongoDB data
 var port = process.env.PORT || 8080; // set port
 
 require('./config/passport');
-
-var storage = multer.diskStorage({ //multer's disk storage settings
-  destination: function (req, file, cb) {
-    cb(null, './public/img/pictures/')
-  },
-  filename: function (req, file, cb) {
-    var datetimestamp = Date.now();
-    cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-  }
-});
-var upload = multer({ //multer settings
-  storage: storage
-}).single('file');
 
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
