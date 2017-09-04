@@ -1,5 +1,6 @@
 var Guest = require('./models/guest');
 var Announcement = require('./models/announcement');
+var User = require('./models/user');
 
     module.exports = function(app) {
 

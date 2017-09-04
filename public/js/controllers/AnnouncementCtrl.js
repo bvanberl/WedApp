@@ -1,7 +1,13 @@
-angular.module('AnnouncementCtrl', ['ngMaterial']).controller('AnnouncementController', ['$scope', 'Announcement', '$mdDialog', function($scope, Announcement, $mdDialog) {
+angular.module('AnnouncementCtrl', ['ngMaterial']).controller('AnnouncementController', ['$scope', '$rootScope', 'Announcement', '$mdDialog', 'authentication', function($scope, $rootScope, Announcement, $mdDialog, authentication) {
 
   // Initialization
+  $rootScope.isLoggedIn = authentication.isLoggedIn();
   get();
+
+  $rootScope.logout = function(){
+    authentication.logout();
+    $rootScope.isLoggedIn = authentication.isLoggedIn();
+  };
 
   // Get all announcements
   function get() {

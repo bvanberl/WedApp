@@ -1,0 +1,28 @@
+<md-content class="md-padding overflow-content">
+  <div class="container">
+  <h1 class="page-header">Wedding Pictures</h1>
+  <div class="row">
+    <div>
+      <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 thumb" ng-repeat="($i,p) in pictures">
+        <a ng-click="openGallery($i)" style="cursor: pointer" class="image-link">
+          <img class="img-thumbnail" ng-src="{{folder + p.filename}}" alt="{{p.filename}}">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</md-content>
+
+<ng-image-gallery
+	images="images"
+	methods="methods"
+	thumbnails="false"
+  thumb-size="150"
+	inline="false"
+	bubbles="false"
+	img-bubbles="false"
+	bg-close="true"
+	piracy="true"
+	img-anim="slide"
+	conf="conf"
+></ng-image-gallery>

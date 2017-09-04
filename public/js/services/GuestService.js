@@ -19,6 +19,10 @@ angular.module('GuestService', []).factory('Guest', ['$http', function($http) {
         // call to DELETE a guest
         delete : function(id) {
             return $http.delete('/api/guests/' + id);
+        },
+
+        rsvp : function(guestData) {
+            return $http.post('/api/guests/rsvp', guestData);
         }
     }
 }]);

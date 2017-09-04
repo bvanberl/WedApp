@@ -1,11 +1,20 @@
-angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$scope', 'Guest', '$mdDialog', function($scope, Guest, $mdDialog) {
+angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$scope', '$rootScope', '$location', 'Guest', '$mdDialog', 'authentication', function($scope, $rootScope, $location, Guest, $mdDialog, authentication) {
 
     get();
+    $rootScope.isLoggedIn = authentication.isLoggedIn();
+    if(!$rootScope.isLoggedIn){
+      $location.path('/');
+    }
     $scope.tagline = "Number of guests attending is unknown.";
     $scope.iguestname = "";
     $scope.irespondedflag = true;
     $scope.inumattending = 0;
     $scope.modal = document.getElementById('new-guest-modal');
+
+    $rootScope.logout = function(){
+      authentication.logout();
+      $rootScope.isLoggedIn = authentication.isLoggedIn();
+    };
 
     // Return yes if guest has responded; return no otherwise
     $scope.dispResponse = function(responded){
@@ -15,7 +24,7 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
     // If guest is attending, display number of people coming
     $scope.dispNum = function(responded, numAttending){
       return (responded ? numAttending : "unknown");
-    }
+    };
 
     // Get sum of number of guests attending.
     $scope.getGuestCount = function(){
@@ -30,7 +39,7 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
       else {
         return "unknown";
       }
-    }
+    };
 
 
     $scope.openNewGuestModal = function(ev) {
@@ -187,13 +196,13 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
       }
       $scope.submitData = function() {
         var responded = "";
-        if($scope.irespondedflag == false){
+        if($scope.respbox.irespondedflag == false){
           $scope.inumattending = 0;       // If response not received, assume 0 people are in attendance
         }
         var guestData =
           '{"_id":"' + $scope.iid + '",' +
           '"name":"' + $scope.iguestname + '",' +
-          '"responded":"' + $scope.irespondedflag + '",' +
+          '"responded":"' + $scope.respbox.irespondedflag + '",' +
           '"numAttending":"' + $scope.inumattending + '",' +
           '"authCode":"' + $scope.code + '"' +
         '}'; // The guest data

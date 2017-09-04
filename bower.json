@@ -1,11 +1,18 @@
 {
-	"name": "wed-app",
-	"version": "1.0.0",
-	"dependencies": {
-		"bootstrap": "latest",
-		"angular": "latest",
-		"angular-route": "latest",
+  "name": "wed-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
     "font-awesome": "latest",
-    "animate.css": "latest"
-	}
+    "animate.css": "latest",
+    "angular-bootstrap-lightbox": "^0.12.0",
+    "ngtouch": "^1.0.2",
+    "angular-cycle-gallery": "^3.0.6",
+    "ng-image-gallery": "^2.1.2"
+  },
+  "resolutions": {
+    "angular-bootstrap": "^1.3.1"
+  }
 }
