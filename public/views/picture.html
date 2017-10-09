@@ -1,6 +1,12 @@
 <md-content class="md-padding overflow-content">
-  <div class="container">
-  <h1 class="page-header">Wedding Pictures</h1>
+
+  Upload right away after file selection:
+  <div class="centeritem">
+  <div class="button upload-btn" ngf-select="upload($file)">
+    <i class="fa fa-cloud-upload" style="font-size:40px" aria-hidden="true"></i>
+    <p>Upload Picture</p>
+  </div>
+</div>
   <div class="row">
     <div>
       <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 thumb" ng-repeat="($i,p) in pictures">

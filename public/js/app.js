@@ -13,6 +13,7 @@ var app = angular.module('wedapp',
   'AnnouncementCtrl',
   'AnnouncementService',
   'PictureCtrl',
-  'PictureService']);
+  'PictureService',
+  'FileUploadCtrl']);
 
 app.value('WEDDING_DATE', new Date("Sep 8, 2018 13:00:00"));

@@ -68,6 +68,31 @@ input[type=text], input[type=password] {
     background-color: #f44336;
 }
 
+.upload-btn {
+  background-color: #C0C0C0;
+  padding: 10px 40px 0px 40px;
+  font-size: 14px;
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  border:1px solid #000000;
+  border-radius: 5px;
+  z-index: 2;
+  text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.upload-btn:hover{
+  background-color: #808080;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+  cursor: pointer;
+  padding: 15px 45px 5px 45px;
+}
+
 /* Center the image and position the close button */
 .imgcontainer {
     text-align: center;
