@@ -22,6 +22,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             templateUrl: 'views/announcement.html',
             controller: 'AnnouncementController'
         })
+        .when('/songs', {
+            templateUrl: 'views/song.html',
+            controller: 'SongController'
+        })
         .when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl',

@@ -9,6 +9,7 @@ var cookieParser   = require('cookie-parser');
 var passport       = require('passport');
 var jwt            = require('express-jwt');
 var multer         = require('multer');
+var request        = require('request');
 var auth = jwt({
   secret: 'MY_SECRET',
   userProperty: 'payload'
@@ -19,6 +20,7 @@ var Guest     = require('./app/models/guest');
 var Announcement     = require('./app/models/announcement');
 var Picture     = require('./app/models/picture');
 var User     = require('./app/models/user');
+var Song     = require('./app/models/song');
 
 
 var db = require('./config/db');
@@ -51,6 +53,11 @@ var storage = multer.diskStorage({ // multer's disk storage settings
 var upload = multer({ // multer settings
     storage: storage
 }).single('file');
+
+// LastFM API settings
+let Last_FM_key = "78d80b1fa2290b123156b11ab7f86c24";
+let Last_FM_shared_secret = "9bf1a9f0fe856e3d479a5cddbf6c80f2";
+let Last_FM_user = "bpavb11";
 
 var router = express.Router();
 
@@ -243,6 +250,105 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
                     res.send(err);
                 res.json({ message: 'Announcement successfully deleted' });
             });
+        });
+
+        // Song ROUTES
+        router.route('/songs')
+            // create an song (accessed at POST http://localhost:8080/api/songs)
+            .post(function(req, res) {
+                var song = new Song();      // create a new instance of the song model
+                song.name = req.body.name;
+                song.artist = req.body.artist;
+                // save the song and check for errors
+                song.save(function(err) {
+                    if (err)
+                        res.send(err);
+                    res.json({ message: 'song created!' });
+                });
+            })
+            // get all the songs (accessed at GET http://localhost:8080/api/songs)
+            .get(function(req, res) {
+                Song.find(function(err, songs) {
+                    if (err)
+                        res.send(err);
+                    res.json(songs);
+                });
+            });
+        router.route('/songs/:song_id') // Get a song by its ID
+            .get(function(req, res) {
+                Song.findById(req.params.song_id, function(err, song) {
+                    if (err)
+                        res.send(err);
+                    res.json(song);
+                });
+            })
+            .put(function(req, res) {
+                // use our bear model to find the bear we want
+                Song.findById(req.params.song_id, function(err, song) {
+                    if (err)
+                        res.send(err);
+                    song.name = req.body.name;
+                    song.artist = req.body.artist;
+                    song.save(function(err) {
+                        if (err)
+                            res.send(err);
+                        res.json({ message: 'song updated!' });
+                    });
+                });
+            })
+            .delete(function(req, res) {
+                Song.remove({
+                    _id: req.params.song_id
+                }, function(err, song) {
+                    if (err)
+                        res.send(err);
+                    res.json({ message: 'song successfully deleted' });
+                });
+            });
+
+      // Song search
+      router.route('/songsearch/:searchtype/:keywords')
+        .get(function(req, res) {
+          var data = [];
+          if(req.params.searchtype == "artist") {
+            // Query Last FM for top tracks by an artist
+            request('http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + req.params.keywords + '&api_key=' + Last_FM_key + '&format=json', { json: true }, (error, response, body) => {
+              if (error) { return console.log(error); }
+              if(response.body.toptracks != undefined){
+                var raw_data = response.body.toptracks.track;
+                for(var i = 0; i < raw_data.length; i++){
+                  var regex = new RegExp('"', 'g');
+                  var song_name = raw_data[i].name.replace(regex,"'");
+                  var artist_name =  raw_data[i].artist.name.replace(regex,"'");
+                  var song = '{"name":"' + song_name + '","artist":"' + artist_name + '"}';
+                  data.push(JSON.parse(song));
+                }
+              }
+              res.status = 200;
+              res.json({
+                "results":data
+              });
+            });
+          }
+          else if(req.params.searchtype == "track") {
+            // Query Last FM for song
+            request('http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + req.params.keywords + '&api_key=' + Last_FM_key + '&format=json', { json: true }, (error, response, body) => {
+              if (error) { return console.log(error); }
+              var raw_data = response.body.results.trackmatches.track;
+              for(var i = 0; i < raw_data.length; i++){
+                var regex = new RegExp('"', 'g');
+                var song_name = raw_data[i].name.replace(regex,"'");
+                var artist_name =  raw_data[i].artist.replace(regex,"'");
+                var song = '{"name":"' + song_name + '","artist":"' + artist_name + '"}';
+                data.push(JSON.parse(song));
+              }
+              res.status = 200;
+              res.json({
+                "results":data
+              });
+            });
+          }
+
         });
 
       // User ROUTES

@@ -1,5 +1,29 @@
+:root {
+  --black: #000000;
+  --very_light_gray: #F0F0F0;
+  --light_gray: #E0E0E0;
+  --medium_gray: #909090;
+}
+
 md-list-item .md-button {
   padding: 0 !important;
+}
+
+input[name=search] {
+    width: 300px;
+    font-size: 20px;
+    padding: 12px 20px 12px 50px !important;
+    margin-bottom: 0 !important;
+    background-image: url("../img/search_icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[name=search]:focus {
+    width: 100%;
 }
 
 .rsvp-btn {
@@ -45,6 +69,45 @@ md-list-item .md-button {
 
 .overflow-content {
   overflow:visible;
+}
+
+.search-results-container {
+
+}
+
+.search-result {
+  position: relative;
+  padding: 5px;
+  background-color: var(--very_light_gray);
+  border-right: 1px solid var(--medium_gray);
+  border-left: 1px solid var(--medium_gray);
+  border-bottom: 1px solid var(--medium_gray);
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+}
+
+.search-result:hover {
+  background-color: var(--light_gray);
+}
+
+.search-result .artist {
+  font-size: 11px;
+  color: var(--medium_gray);
+  margin: 0 !important;
+}
+
+.search-result .track {
+  font-size: 17px;
+  color: var(--black);
+  margin: 0 !important;
+}
+
+.search-result .add-song {
+  font-size: 40px;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  color: #008000;
 }
 
 td.min-size {

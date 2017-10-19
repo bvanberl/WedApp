@@ -12,6 +12,8 @@ var app = angular.module('wedapp',
   'GuestService',
   'AnnouncementCtrl',
   'AnnouncementService',
+  'SongCtrl',
+  'SongService',
   'PictureCtrl',
   'PictureService',
   'FileUploadCtrl']);

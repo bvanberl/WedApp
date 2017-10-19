@@ -1,0 +1,23 @@
+<md-content class="md-padding overflow-content">
+<h1>Song requests</h1>
+<p>
+  Suggest some songs to be played at the reception! Type in the box below to search for songs. You can search by song name or artist.
+</p>
+<p>
+  Search by: </br>
+  <input type="radio" ng-model="input_type" value="track"> Song Name </br>
+  <input type="radio" ng-model="input_type" value="artist"> Artist
+</p>
+<div class="search-bar">
+  <input type="text" name="search" ng-model="search_terms" ng-change="onKeyboardEvent()" placeholder="Type to search">
+  <div class="search-results-container">
+    <div class="search-result" ng-repeat="result in results">
+      <p class="artist">{{result.artist}}</p>
+      <p class="track">{{result.name}}</p>
+      <p class="add-song">
+        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+      </p>
+    </div>
+  </div>
+</div>
+</md-content>
