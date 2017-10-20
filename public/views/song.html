@@ -5,13 +5,13 @@
 </p>
 <p>
   Search by: </br>
-  <input type="radio" ng-model="input_type" value="track"> Song Name </br>
-  <input type="radio" ng-model="input_type" value="artist"> Artist
+  <input type="radio" ng-model="input_type" value="track" ng-click="onKeywordsChangedEvent()"> Song Name </br>
+  <input type="radio" ng-model="input_type" value="artist" ng-click="onKeywordsChangedEvent()"> Artist
 </p>
 <div class="search-bar">
-  <input type="text" name="search" ng-model="search_terms" ng-change="onKeyboardEvent()" placeholder="Type to search">
+  <input type="text" name="search" ng-model="search_terms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search">
   <div class="search-results-container">
-    <div class="search-result" ng-repeat="result in results">
+    <div class="search-result" ng-repeat="result in results" ng-click="requestSong(result)">
       <p class="artist">{{result.artist}}</p>
       <p class="track">{{result.name}}</p>
       <p class="add-song">
