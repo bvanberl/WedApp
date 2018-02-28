@@ -3,11 +3,11 @@ angular.module('InformationCtrl', ['ngAnimate']).controller('InformationControll
   $scope.timezone = "America/Halifax";
   $scope.weddingtime = WEDDING_DATE;
   $scope.ceremonyLoc = "St. Peter's Cathedral Basilica";
-  $scope.ceremonyDesc = "The groom's family have been members of this parish for several years.  The ceremony will commence at 2:00PM.";
+  $scope.ceremonyDesc = "The groom's family have been members of this parish for several years.  The ceremony will commence at 11:00 a.m.";
   $scope.ceremonyAddr = "196 Dufferin Ave, London, ON N6A 5N6";
   $scope.cocktailLoc = "Gomes family residence";
-  $scope.cocktailDesc = "The cocktail hour will take place directly following the ceremony at the bride's house in the backyard.  Drinks and hor d'oevres will be provided.  Wedding pictures will be taken during this time.";
-  $scope.cocktailAddr = "6 Campbell Crescent, Coldstream, ON";
+  $scope.cocktailDesc = "The cocktail hour will take place directly following the ceremony at the bride's house in the backyard.  Drinks and hor d'oevres will be provided.  Wedding pictures will be taken during this time at the Coldstream Conservation Area.  The address will be given at the end of the ceremony.";
+  $scope.cocktailAddr = "Gomes Family Residence";
   $scope.receptionLoc = "The Portuguese Canadian Club of Strathroy";
   $scope.receptionDesc = "Delicious food, a great dessert, and a lit banger to follow!";
   $scope.receptionAddr = "375 York St, Strathroy, ON N7G 3T6";
@@ -27,6 +27,10 @@ angular.module('InformationCtrl', ['ngAnimate']).controller('InformationControll
     }
   }
 
+  $scope.sendToRegistry = function() {
+    window.open('http://www2.thebay.com/giftregistry/', '_blank');
+  }
+
   $window.LoadMaps = function() {
     var myCenter = new google.maps.LatLng(42.987104,-81.249979);
     var mapCanvas = document.getElementById("ceremonyMap");
@@ -36,17 +40,6 @@ angular.module('InformationCtrl', ['ngAnimate']).controller('InformationControll
     marker.setMap(map);
     var infowindow = new google.maps.InfoWindow({
       content: $scope.ceremonyLoc
-    });
-    infowindow.open(map,marker);
-
-    myCenter = new google.maps.LatLng(43.012711,-81.508632);
-    mapCanvas = document.getElementById("cocktailMap");
-    mapOptions = {center: myCenter, zoom: 14};
-    map = new google.maps.Map(mapCanvas, mapOptions);
-    marker = new google.maps.Marker({position:myCenter});
-    marker.setMap(map);
-    infowindow = new google.maps.InfoWindow({
-      content: $scope.cocktailLoc
     });
     infowindow.open(map,marker);
 

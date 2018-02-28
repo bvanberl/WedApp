@@ -1,10 +1,48 @@
-<div class="fade">
-<md-content class="md-padding bgimg">
-    <div class="middle">
+<div class="fade home-content">
+  <div class="bg-img">
+    <div class="rsvp-caption">
       <h1>Olivia and Blake's Wedding</h1>
       <hr>
       <p ng-bind="timeleft"></p>
-      <button class="rsvp-btn" ng-click=openRSVPModal($event)>RSVP</button>
+      <a href="/rsvp"><button class="rsvp-btn">RSVP</button></a>
+      <p>
+        <button class="expand-down-btn" ng-click="gotoElement('info-caption')">
+          <span class="glyphicon glyphicon-menu-down"></span>
+        </button>
+      </p>
     </div>
-</md-content>
+  </div>
+  <a href="/information" class="home-box-a" id="info-caption">
+    <div style="position:relative;">
+      <div class="home-box-light">
+        <h2 class="spaced-heading">Saturday September 8, 2018 at 11:00</h2>
+        <p class="home-text">View more information on where and when.</p>
+      </div>
+    </div>
+  </a>
+
+<div class="bg-img-2">
+  <div class="caption">
+    <a href="/inns"><button class="rsvp-btn">Check out local accomodations!</button></a>
+  </div>
+</div>
+
+<a href="/pictures" class="home-box-a">
+  <div style="position:relative;">
+    <div class='home-box-dark'>
+      <p>Upload your own pictures from the big day!</p>
+    </div>
+  </div>
+</a>
+
+<div class="bg-img-3">
+  <div class="caption">
+    <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">SCROLL UP</span>
+  </div>
+</div>
+
+<div style="position:relative;">
+  <div class="home-box-dark">
+    <p>Request songs for the DJ!</p>
+  </div>
 </div>

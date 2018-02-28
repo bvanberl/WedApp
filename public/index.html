@@ -26,14 +26,16 @@
 
     <!-- ANGULAR -->
     <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/services/AuthenticationService.js"></script>
     <script src="js/services/DataService.js"></script>
     <script src="js/controllers/HomeCtrl.js"></script>
+    <script src="js/controllers/NavCtrl.js"></script>
     <script src="js/controllers/InformationCtrl.js"></script>
     <script src="js/controllers/GuestCtrl.js"></script>
     <script src="js/services/GuestService.js"></script>
-    <script src="js/controllers/AnnouncementCtrl.js"></script>
-    <script src="js/services/AnnouncementService.js"></script>
+    <script src="js/controllers/InnCtrl.js"></script>
+    <script src="js/services/InnService.js"></script>
     <script src="js/controllers/PictureCtrl.js"></script>
     <script src="js/services/PictureService.js"></script>
     <script src="js/controllers/LoginCtrl.js"></script>
@@ -42,6 +44,8 @@
     <script src="js/controllers/FileUploadCtrl.js"></script>
     <script src="js/controllers/SongCtrl.js"></script>
     <script src="js/services/SongService.js"></script>
+    <script src="js/controllers/SongListCtrl.js"></script>
+    <script src="js/controllers/RSVPCtrl.js"></script>
 
     <script src="js/appRoutes.js"></script>
 	  <script src="/libs/angular-aria/angular-aria.js"></script>
@@ -54,58 +58,109 @@
     <script src="/libs/ng-image-gallery/dist/ng-image-gallery.min.js"></script>
     <script src="/libs/ng-file-upload/ng-file-upload-shim.min.js"></script>
     <script src="/libs/ng-file-upload/ng-file-upload.min.js"></script>
-
+    <script src="/libs/angular-messages/angular-messages.min.js"></script>
 </head>
 <body ng-app="wedapp" ng-cloak>
 
-    <nav class="navbar navbar-default" style="margin-bottom:0">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<md-content  md-theme="wedappTheme" ng-controller="NavCtrl" ng-init="affixMobileMenuBtn()">
+
+  <div class="navbar">
+    <a href="/">HOME</a>
+    <a href="/information">INFO</a>
+    <a href="/inns">STAY</a>
+    <a href="/pictures">PICTURES</a>
+    <a href="/songs">SONGS</a>
+    <div class="login-btn">
+      <a ng-show="!isLoggedIn" href="/login">LOG IN</a>
     </div>
+    <div class="dropdown">
+      <button ng-show="isLoggedIn" class="dropbtn">ADMIN
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/profile">View Profile</a>
+        <a href="/register">New Profile</a>
+        <a href="/guests">Guests</a>
+        <a href="/songlist">Song Requests</a>
+        <hr class="dropdown-divider">
+        <a ng-click="logout()">Log Out</a>
+      </div>
+    </div>
+  </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
-        <li><a href="/information">Info</a></li>
-        <li><a href="/announcements">Announcements</a></li>
-        <li><a href="/pictures">Pictures</a></li>
-        <li><a href="/songs">Songs</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-show="!isLoggedIn" id="log-in-btn"><a href="/login">Log In</a></li>
-        <li ng-show="isLoggedIn" id="admin-panel" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/profile">View Profile</a></li>
-            <li><a href="/register">New Profile</a></li>
-            <li><a href="/guests">Guests</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a ng-click="logout()">Log Out</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<script>
-$(".nav a").on("click", function(){
-   $(".nav").find(".active").removeClass("active");
-   $(this).parent().addClass("active");
-});
-$(".nav button").on("click", function(){
-   $("button").attr("aria-expanded","true");
-});
-</script>
-
-    <!-- ANGULAR DYNAMIC CONTENT -->
-    <div ng-view></div>
+  <div layout="column" ng-cloak>
+    <section layout="row" flex>
+        <md-sidenav md-theme="wedappTheme" class="md-sidenav-left" md-component-id="left" md-is-locked-open="false" md-whiteframe="4">
+          <md-toolbar class="md-accent">
+            <h1 class="md-toolbar-tools">Menu</h1>
+          </md-toolbar>
+          <md-toolbar class="md-accent md-hue-1">
+            <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+              <a href="/">HOME</a>
+            </md-button>
+            <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+              <a href="/information">INFO</a>
+            </md-button>
+            <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+              <a href="/inns">STAY</a>
+            </md-button>
+            <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+              <a href="/pictures">PICTURES</a>
+            </md-button>
+            <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+              <a href="/songs">SONGS</a>
+            </md-button>
+            <md-divider></md-divider>
+          </md-toolbar>
+          <md-content>
+            <md-button ng-show="!isLoggedIn" ng-click="toggle()" class="md-primary" hide-gt-md>
+              <a href="/login">LOG IN</a>
+            </md-button>
+            <md-button ng-show="isLoggedIn" ng-click="openAdminMenu($mdMenu, $event)" class="md-primary" hide-gt-md>
+              ADMIN
+            </md-button>
+            <md-menu-content width="4">
+              <md-menu-item>
+                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                  <a href="/profile">VIEW PROFILE</a>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                  <a href="/register">NEW PROFILE</a>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                  <a href="/guests">GUESTS</a>
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                  <a href="/songlist">SONG REQUESTS</a>
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item>
+                <md-button ng-click="toggle();logout()" class="md-primary" hide-gt-md>
+                  <a href="/">LOG OUT</a>
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+            <md-button ng-click="closeSidenav()" class="md-primary" hide-gt-md>
+              Close
+            </md-button>
+          </md-content>
+        </md-sidenav>
+        <div flex md-theme="wedappTheme">
+          <md-button ng-click="toggle()" ng-hide="isOpen()" aria-label="menu" class="md-fab md-accent" id="mobile-menu-btn">
+            &#9776; <!-- menu navigation icon -->
+          </md-button>
+          <!-- ANGULAR DYNAMIC CONTENT -->
+          <div ng-view></div>
+        </div>
+     </section>
+   </div>
+ </md-content>
 </body>
 </html>

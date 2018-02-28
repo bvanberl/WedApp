@@ -1,0 +1,24 @@
+<div ng-controller="NavCtrl" ng-cloak>
+    <md-content md-theme="wedappTheme">
+      <md-nav-bar
+        md-no-ink-bar="disableInkBar"
+        md-selected-nav-item="currentNavItem"
+        nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="goto('page1')" name="page1">
+        Home
+        </md-nav-item>
+        <md-nav-item md-nav-click="goto('page2')" name="page2">
+        Info
+        </md-nav-item>
+        <md-nav-item md-nav-click="goto('page3')" name="page3">
+        Announcements
+        </md-nav-item>
+        <md-nav-item md-nav-click="goto('page4')" name="page4">
+        Pictures
+        </md-nav-item>
+        <md-nav-item md-nav-click="goto('page5')" name="page5">
+        Songs
+        </md-nav-item>
+      </md-nav-bar>
+    </md-content>
+  </div>

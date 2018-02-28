@@ -17,8 +17,8 @@ angular.module('PictureService', []).factory('Picture', ['$http', function($http
         },
 
         // call to DELETE a picture
-        delete : function(id) {
-            return $http.delete('/api/pictures/' + id);
+        delete : function(id, filename) {
+            return $http.delete('/api/pictures/' + id + '/' + filename);
         }
     }
 }]);

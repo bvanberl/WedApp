@@ -10,6 +10,7 @@ var passport       = require('passport');
 var jwt            = require('express-jwt');
 var multer         = require('multer');
 var request        = require('request');
+var fs             = require('fs');
 var auth = jwt({
   secret: 'MY_SECRET',
   userProperty: 'payload'
@@ -17,7 +18,7 @@ var auth = jwt({
 
 // COLLECTIONS ================================================
 var Guest     = require('./app/models/guest');
-var Announcement     = require('./app/models/announcement');
+var Inn     = require('./app/models/inn');
 var Picture     = require('./app/models/picture');
 var User     = require('./app/models/user');
 var Song     = require('./app/models/song');
@@ -121,28 +122,28 @@ router.route('/guests/:guest_id') // Get a guest by his/her ID
 
 router.route('/guests/rsvp')
   .post(function(req, res){
-    var query = Guest.findOne({ 'authCode': req.body.authCode }); // find guest with matching auth code
-    query.select('authCode'); // selecting the `auth code field
-
-    // execute the query at a later time
-    query.exec(function (err, guest) {
-      if (err)
-        res.send(err);
-      Guest.findById(guest._id, function(err, guest1) {
-          if (err)
-              res.send(err);
-          guest1.name = guest1.name;
-          guest1.responded = true;
-          guest1.numAttending = req.body.numAttending;
-          guest1.authCode = req.body.authCode;
-          guest1.save(function(err) {
-              if (err)
-                  res.send(err);
-          });
-      });
-      res.json({ message: 'RSVP completed' });
-    })
+      Guest.findOne({ 'authCode': req.body.authCode }, function(err, guest1) {
+        console.log(guest1);
+          if (err || guest1 == null)
+              res.json({message: 'Error'});
+          else {
+            guest1.name = guest1.name;
+            guest1.isAttending = guest1.isAttending;
+            guest1.responded = true;
+            guest1.numAdults = req.body.numAdults;
+            guest1.numChildren = req.body.numChildren;
+            guest1.numChildrenMeals = req.body.numChildrenMeals;
+            guest1.dietaryRestrictions = req.body.dietaryRestrictions;
+            guest1.authCode = req.body.authCode;
+            guest1.save(function(err) {
+                if (err)
+                    res.json({ message: err});
+                    return;
+            });
+            res.json({ message: 'Complete' });
+          }
   });
+});
 
 
 // PICTURE ROUTES
@@ -187,6 +188,7 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
         });
     })
     .delete(function(req, res) {
+        fs.unlinkSync('./public/img/pictures/' + req.params.filename);
         Picture.remove({
             _id: req.params.picture_id
         }, function(err, picture) {
@@ -197,58 +199,60 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
     });
 
 
-    // announcement ROUTES
-    router.route('/announcements')
-        // create an announcement (accessed at POST http://localhost:8080/api/announcements)
+    // inn ROUTES
+    router.route('/inns')
+        // create an inn (accessed at POST http://localhost:8080/api/inns)
         .post(function(req, res) {
-            var announcement = new Announcement();      // create a new instance of the announcement model
-            console.log(req.body.datetime + ", MESSAGE:" + req.body.content);
-            announcement.datetime = req.body.datetime;
-            announcement.content = req.body.content;
-            // save the announcement and check for errors
-            announcement.save(function(err) {
+            var inn = new Inn();      // create a new instance of the inn model
+            inn.name = req.body.name;
+            inn.address = req.body.address;
+            inn.phoneNumber = req.body.phoneNumber;
+            inn.url = req.body.url;
+            // save the inn and check for errors
+            inn.save(function(err) {
                 if (err)
                     res.send(err);
-                res.json({ message: 'Announcement created!' });
+                res.json({ message: 'Inn created!' });
             });
         })
-        // get all the announcements (accessed at GET http://localhost:8080/api/announcements)
+        // get all the inns (accessed at GET http://localhost:8080/api/inns)
         .get(function(req, res) {
-            Announcement.find(function(err, announcements) {
+            Inn.find(function(err, inns) {
                 if (err)
                     res.send(err);
-                res.json(announcements);
+                res.json(inns);
             });
         });
-    router.route('/announcements/:announcement_id') // Get a announcement by his/her ID
+    router.route('/inns/:inn_id') // Get a inn by his/her ID
         .get(function(req, res) {
-            Announcement.findById(req.params.announcement_id, function(err, announcement) {
+            Inn.findById(req.params.inn_id, function(err, inn) {
                 if (err)
                     res.send(err);
-                res.json(announcement);
+                res.json(inn);
             });
         })
         .put(function(req, res) {
-            // use our bear model to find the bear we want
-            Announcement.findById(req.params.announcement_id, function(err, announcement) {
+            Inn.findById(req.params.inn_id, function(err, inn) {
                 if (err)
                     res.send(err);
-                announcement.datetime = req.body.datetime;
-                announcement.content = req.body.content;
-                announcement.save(function(err) {
+                inn.name = req.body.name;
+                inn.address = req.body.address;
+                inn.phoneNumber = req.body.phoneNumber;
+                inn.url = req.body.url;
+                inn.save(function(err) {
                     if (err)
                         res.send(err);
-                    res.json({ message: 'Announcement updated!' });
+                    res.json({ message: 'Inn updated!' });
                 });
             });
         })
         .delete(function(req, res) {
-            Announcement.remove({
-                _id: req.params.announcement_id
-            }, function(err, announcement) {
+            Inn.remove({
+                _id: req.params.inn_id
+            }, function(err, inn) {
                 if (err)
                     res.send(err);
-                res.json({ message: 'Announcement successfully deleted' });
+                res.json({ message: 'Inn successfully deleted' });
             });
         });
 
@@ -256,15 +260,34 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
         router.route('/songs')
             // create an song (accessed at POST http://localhost:8080/api/songs)
             .post(function(req, res) {
-                var song = new Song();      // create a new instance of the song model
-                song.name = req.body.name;
-                song.artist = req.body.artist;
-                // save the song and check for errors
-                song.save(function(err) {
-                    if (err)
-                        res.send(err);
-                    res.json({ message: 'song created!' });
+                Song.find({name: req.body.name, artist: req.body.artist}, function(err, docs) {
+                    if (!docs.length) {
+                      var song = new Song();      // create a new instance of the song model
+                      song.name = req.body.name;
+                      song.artist = req.body.artist;
+                      song.noRequests = 1;
+                      // save the song and check for errors
+                      song.save(function(err) {
+                          if (err)
+                              res.send(err);
+                          res.json({ message: 'song created!' });
+                      });
+                    }
+                    else {
+                      console.log(docs[0]);
+                      Song.findById(docs[0]._id, function(err, song) {
+                          if (err)
+                              res.send(err);
+                          song.noRequests = song.noRequests + 1; // Increment song requests
+                          song.save(function(err) {
+                              if (err)
+                                  res.send(err);
+                              res.json({ message: 'song updated!' });
+                          });
+                      });
+                    }
                 });
+
             })
             // get all the songs (accessed at GET http://localhost:8080/api/songs)
             .get(function(req, res) {

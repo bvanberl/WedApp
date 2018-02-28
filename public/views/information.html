@@ -1,125 +1,107 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeof6suw6bALALXHonFDA_fu6xvcHOtdU&callback=LoadMaps"></script>
-<script type="text/javascript">(function () {
-            if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
-            if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
-                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-                s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
-                s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
-                var h = d[g]('body')[0];h.appendChild(s); }})();
-    </script>
-
-<md-content class="fade">
-  <h1 align="center">Wedding Day Details</h1>
-  <button class="accordion" ng-click="expand($event)">Ceremony</button>
-  <div class="panel">
-    <div class="container">
-      <div class="row">
-          <div id="info-outer" class="col-md-12">
-            <div class="col-md-6">
-              <h2>{{ ceremonyLoc }}</h2>
-              <p>
-                <span class="glyphicon glyphicon-time"></span>
-                <span class="addtocalendar">
-                  <a class="atcb-link" data-toggle="tooltip" title="Add to Calendar"> 2:00 PM</a>
-                  <var class="atc_event">
-                  <var class="atc_date_start">2019-03-16 14:00:00</var>
-                  <var class="atc_date_end">2019-03-16 15:00:00</var>
-                  <var class="atc_timezone">{{ timezone }}</var>
-                  <var class="atc_title">Olivia and Blake's Wedding Ceremony</var>
-                  <var class="atc_description">{{ ceremonyDesc }}</var>
-                  <var class="atc_location">{{ ceremonyAddr }}</var>
-                </var>
-              </span>
-              </p>
-              <p>
-                <span class="glyphicon glyphicon-map-marker"></span>
-                <a href="https://www.google.ca/maps/place/St.+Peter's+Cathedral+Basilica+%26+Parish+Office/@42.9869,-81.2521887,17z/data=!3m1!4b1!4m5!3m4!1s0x882ef2030320a421:0x676ae3903c8eac04!8m2!3d42.9869!4d-81.25" target="_blank">
-                   {{ ceremonyAddr }}
-                </a>
-              </p>
-              <p>
-                <span class="glyphicon glyphicon-globe"></span>
-                <a href="http://wp.dol.ca/webportal/parish/web/view_parish/St._Peter_s_Cathedral_Basilica/1/90" target="_blank"> Venue website</a>
-              </p>
-              <p>{{ ceremonyDesc }}</p>
-            </div>
-            <div id="ceremonyMap" class="col-md-6 map-canvas"></div>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  <button class="accordion" ng-click="expand($event)">Cocktail Hour</button>
-  <div class="panel">
-    <div class="container">
-      <div class="row">
-        <div id="info-outer" class="col-md-12">
-          <div class="col-md-6">
-            <h2>{{ cocktailLoc }}</h2>
-            <p>
-              <span class="glyphicon glyphicon-time"></span>
-              <span class="addtocalendar">
-                <a class="atcb-link" data-toggle="tooltip" title="Add to Calendar"> 3:30 PM</a>
-                <var class="atc_event">
-                <var class="atc_date_start">2019-03-16 15:30:00</var>
-                <var class="atc_date_end">2019-03-16 17:30:00</var>
-                <var class="atc_timezone">{{ timezone }}</var>
-                <var class="atc_title">Olivia and Blake's Wedding Cocktail Hour</var>
-                <var class="atc_description">{{ cocktailDesc }}</var>
-                <var class="atc_location">{{ cocktailAddr }}</var>
-              </var>
-            </span>
-            </p>
-            <p>
-              <span class="glyphicon glyphicon-map-marker"></span>
-              <a href="https://www.google.ca/maps/place/6+Campbell+Crescent,+Exeter,+ON+N0M/@43.0125388,-81.5108371,17z/data=!3m1!4b1!4m5!3m4!1s0x882efd536d94fe07:0xc4cb9e0093b6fb19!8m2!3d43.0125388!4d-81.5086431" target="_blank">
-                {{ cocktailAddr }}
-              </a>
-            </p>
-            <p>{{ cocktailDesc }}</p>
-          </div>
-          <div id="cocktailMap" class="col-md-6 map-canvas"></div>
+<md-content>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-sm-12">
+        <md-tabs md-dynamic-height md-border-bottom class="info-tabs">
+          <md-tab label="Ceremony">
+            <md-content>
+              <div class="container event-info-container">
+                <div class="row">
+                    <div id="info-outer" class="col-md-12">
+                      <div class="col-md-6">
+                        <h2>{{ ceremonyLoc }}</h2>
+                        <p>
+                          <span class="glyphicon glyphicon-time"></span>
+                          <span class="addtocalendar">
+                            <a href="/">11:00 AM</a>
+                        </span>
+                        </p>
+                        <p>
+                          <span class="glyphicon glyphicon-map-marker"></span>
+                          <a href="https://www.google.ca/maps/place/St.+Peter's+Cathedral+Basilica+%26+Parish+Office/@42.9869,-81.2521887,17z/data=!3m1!4b1!4m5!3m4!1s0x882ef2030320a421:0x676ae3903c8eac04!8m2!3d42.9869!4d-81.25" target="_blank">
+                             {{ ceremonyAddr }}
+                          </a>
+                        </p>
+                        <p>
+                          <span class="glyphicon glyphicon-globe"></span>
+                          <a href="http://wp.dol.ca/webportal/parish/web/view_parish/St._Peter_s_Cathedral_Basilica/1/90" target="_blank"> Venue website</a>
+                        </p>
+                        <p>{{ ceremonyDesc }}</p>
+                      </div>
+                      <div id="ceremonyMap" class="col-md-6 map-canvas"></div>
+                    </div>
+                  </div>
+              </div>
+            </md-content>
+          </md-tab>
+          <md-tab label="Cocktail Hour">
+            <md-content>
+              <div class="container event-info-container">
+                <div class="row">
+                  <div id="info-outer" class="col-md-12">
+                    <div class="col-md-6">
+                      <h2>{{ cocktailLoc }}</h2>
+                      <p>
+                        <span class="glyphicon glyphicon-time"></span>
+                        <span class="addtocalendar">
+                          <a class="atcb-link" data-toggle="tooltip" title="Add to Calendar"> 1:00 PM</a>
+                      </span>
+                      </p>
+                      <p>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                          {{ cocktailAddr }}
+                      </p>
+                      <p>{{ cocktailDesc }}</p>
+                    </div>
+                    <div id="cocktailMap" class="col-md-6 map-canvas">
+                      <img src="img/cocktail_hour.png" alt="cocktail" class="enclosed-img"></img>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </md-content>
+          </md-tab>
+          <md-tab label="Reception">
+            <md-content>
+              <div class="container event-info-container">
+                <div class="row">
+                  <div id="info-outer" class="col-md-12">
+                    <div class="col-md-6">
+                      <h2>{{ receptionLoc }}</h2>
+                      <p>
+                        <span class="glyphicon glyphicon-time"></span>
+                        <span class="addtocalendar">
+                          <a> 5:30 PM</a>
+                      </span>
+                      </p>
+                      <p>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <a href="https://www.google.ca/maps/place/Portuguese+Canadian+Club+of+Strathroy/@42.958759,-81.602556,17z/data=!3m1!4b1!4m5!3m4!1s0x882f03f6b328706d:0x6e563d2a131509a8!8m2!3d42.958759!4d-81.600362" target="_blank">
+                           {{ receptionAddr }}
+                        </a>
+                      </p>
+                      <p>
+                        <span class="glyphicon glyphicon-globe"></span>
+                        <a href="http://pccstrathroy.com/wp/" target="_blank"> Venue website</a>
+                      </p>
+                      <p>{{ receptionDesc }} </p>
+                    </div>
+                    <div id="receptionMap" class="col-md-6 map-canvas"></div>
+                  </div>
+                </div>
+              </div>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <p class="centeritem">The bridge and groom are registered at The Bay.</p>
+        <br/>
+        <div class="registry-link" ng-click="sendToRegistry()">
+          SEE THE REGISTRY
         </div>
       </div>
     </div>
   </div>
-
-  <button class="accordion" ng-click="expand($event)">Reception</button>
-  <div class="panel">
-    <div class="container">
-      <div class="row">
-        <div id="info-outer" class="col-md-12">
-          <div class="col-md-6">
-            <h2>{{ receptionLoc }}</h2>
-            <p>
-              <span class="glyphicon glyphicon-time"></span>
-              <span class="addtocalendar">
-                <a class="atcb-link" data-toggle="tooltip" title="Add to Calendar"> 6:00 PM</a>
-                <var class="atc_event">
-                <var class="atc_date_start">2019-03-16 18:00:00</var>
-                <var class="atc_date_end">2019-03-17 01:00:00</var>
-                <var class="atc_timezone">America/Halifax</var>
-                <var class="atc_title">Olivia and Blake's Wedding Reception</var>
-                <var class="atc_description">{{ receptionDesc }}</var>
-                <var class="atc_location">{{ receptionAddr }}</var>
-              </var>
-            </span>
-            </p>
-            <p>
-              <span class="glyphicon glyphicon-map-marker"></span>
-              <a href="https://www.google.ca/maps/place/Portuguese+Canadian+Club+of+Strathroy/@42.958759,-81.602556,17z/data=!3m1!4b1!4m5!3m4!1s0x882f03f6b328706d:0x6e563d2a131509a8!8m2!3d42.958759!4d-81.600362" target="_blank">
-                 {{ receptionAddr }}
-              </a>
-            </p>
-            <p>
-              <span class="glyphicon glyphicon-globe"></span>
-              <a href="http://pccstrathroy.com/wp/" target="_blank"> Venue website</a>
-            </p>
-            <p>{{ receptionDesc }} </p>
-          </div>
-          <div id="receptionMap" class="col-md-6 map-canvas"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</md-content>
+  </md-content>

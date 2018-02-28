@@ -1,0 +1,44 @@
+<md-dialog flex="50" id="new-inn-modal">
+  <form ng-cloak>
+    <div class="imgcontainer">
+      <span ng-click="cancel()" class="close" title="Close Modal">&times;</span>
+      <h1 class="modal-title" align="center">Update Inn</h1>
+    </div>
+    <div class="container col-md-12">
+      <div class="form-group">
+        <label><b>Inn name</b></label>
+        <input class="form-control" ng-model="iinnname" ng-focus="focused"></textarea>
+      </div>
+      <div class="form-group">
+        <label><b>Address</b></label>
+        <input class="form-control" ng-model="iinnaddress"></textarea>
+      </div>
+      <div class="form-group">
+        <label><b>Phone number</b></label>
+        <input class="form-control" type="tel" ng-model="iinnphone"></textarea>
+      </div>
+      <div class="form-group">
+        <label><b>URL</b></label>
+        <input class="form-control" ng-model="iinnurl"></textarea>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <div class="row">
+            <div class="col-md-6">
+              <button ng-click="cancel()" class="btn btn-block btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+                   Cancel
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-block btn-success" id="submitbutton" ng-click="submitData()">
+                <span class="glyphicon glyphicon-plus"></span>
+                   Update
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</md-dialog>

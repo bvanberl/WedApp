@@ -1,4 +1,4 @@
-angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$scope', '$rootScope', '$location', 'Guest', '$mdDialog', 'authentication', function($scope, $rootScope, $location, Guest, $mdDialog, authentication) {
+angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestController', ['$scope', '$rootScope', '$location', 'Guest', '$mdDialog', 'authentication', function($scope, $rootScope, $location, Guest, $mdDialog, authentication) {
 
     get();
     $rootScope.isLoggedIn = authentication.isLoggedIn();
@@ -7,7 +7,7 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
     }
     $scope.tagline = "Number of guests attending is unknown.";
     $scope.iguestname = "";
-    $scope.irespondedflag = true;
+    $scope.irespondedflag = false;
     $scope.inumattending = 0;
     $scope.modal = document.getElementById('new-guest-modal');
 
@@ -66,7 +66,9 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
           id: g._id,
           name: g.name,
           responded: g.responded,
-          numAttending: g.numAttending,
+          numAdults: g.numAdults,
+          numChildren: g.numChildren,
+          numChildrenMeals: g.numChildrenMeals,
           code: g.authCode
         },
         controller: UpdateGuestDialogController,
@@ -139,9 +141,7 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
 
     function NewGuestDialogController($scope, $mdDialog) {
       $scope.iguestname = "";
-      $scope.respbox = {
-        irespondedflag: true
-      };
+      $scope.irespondedflag = false;
       $scope.inumattending = 0;
       $scope.hide = function() {
         $mdDialog.hide();
@@ -150,8 +150,10 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
         $mdDialog.cancel();
       };
       $scope.responseBehaviour = function() {
-        if(!$scope.respbox.irespondedflag) {
-          $scope.inumattending = 0;
+        if(!$scope.irespondedflag) {
+          $scope.inumadults = 0;       // If response not received, assume 0 people are in attendance
+          $scope.inumchildren = 0;
+          $scope.inumchildrenmeals = 0;
         }
       }
       $scope.submitData = function() {
@@ -161,13 +163,18 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
           code += chars[Math.floor(Math.random() * chars.length)];
         }
         var responded = "";
-        if($scope.respbox.irespondedflag == false){
-          $scope.inumattending = 0;       // If response not received, assume 0 people are in attendance
+        if($scope.irespondedflag == false){
+          $scope.inumadults = 0;       // If response not received, assume 0 people are in attendance
+          $scope.inumchildren = 0;
+          $scope.inumchildrenmeals = 0;
         }
         var guestData =
           '{"name":"' + $scope.iguestname + '",' +
           '"responded":"' + $scope.irespondedflag + '",' +
-          '"numAttending":"' + $scope.inumattending + '",' +
+          '"numAdults":"' + $scope.inumadults + '",' +
+          '"numAdults":"' + $scope.inumchildren + '",' +
+          '"numChildren":"' + $scope.inumchildrenmeals + '",' +
+          '"numChildMeals":"' + $scope.idietaryrestrictions + '",' +
           '"authCode":"' + code + '"' +
         '}'; // The guest data
         $mdDialog.hide(guestData);
@@ -175,13 +182,12 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
     }
 
 
-    function UpdateGuestDialogController($scope, $mdDialog, id, name, responded, numAttending, code) {
+    function UpdateGuestDialogController($scope, $mdDialog, id, name, responded, numAdults, numChildren, numChildrenMeals, code) {
       $scope.iid = id;
       $scope.iguestname = name;
-      $scope.respbox = {
-        irespondedflag: responded
-      };
-      $scope.inumattending = numAttending;
+      $scope.inumadults = numAdults;
+      $scope.inumchildren = numChildren;
+      $scope.inumchildrenmeals = numChildrenMeals;
       $scope.code = code;
       $scope.hide = function() {
         $mdDialog.hide();
@@ -190,21 +196,24 @@ angular.module('GuestCtrl', ['ngMaterial']).controller('GuestController', ['$sco
         $mdDialog.cancel();
       };
       $scope.responseBehaviour = function() {
-        if(!$scope.respbox.irespondedflag) {
+        if(!$scope.irespondedflag) {
           $scope.inumattending = 0;
         }
       }
       $scope.submitData = function() {
         var responded = "";
-        if($scope.respbox.irespondedflag == false){
+        if($scope.irespondedflag == false){
           $scope.inumattending = 0;       // If response not received, assume 0 people are in attendance
         }
         var guestData =
           '{"_id":"' + $scope.iid + '",' +
           '"name":"' + $scope.iguestname + '",' +
-          '"responded":"' + $scope.respbox.irespondedflag + '",' +
-          '"numAttending":"' + $scope.inumattending + '",' +
-          '"authCode":"' + $scope.code + '"' +
+          '"responded":"' + $scope.irespondedflag + '",' +
+          '"numAdults":"' + $scope.inumadults + '",' +
+          '"numAdults":"' + $scope.inumchildren + '",' +
+          '"numChildren":"' + $scope.inumchildrenmeals + '",' +
+          '"numChildMeals":"' + $scope.idietaryrestrictions + '",' +
+          '"authCode":"' + code + '"' +
         '}'; // The guest data
         $mdDialog.hide(guestData);
       };

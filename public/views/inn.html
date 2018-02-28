@@ -1,0 +1,35 @@
+<md-content md-theme="wedappTheme" class="elevated-box">
+  <div class="container">
+    <div class="row is-table-row">
+      <div ng-show="!isLoggedIn" class="col-sm-12 col-md-12 col-lg-12">
+        <h1 class="page-header">Inns</h1>
+      </div>
+      <div ng-show="isLoggedIn">
+        <span flex></span>
+        <button style="float:right;" ng-click="openNewInnModal($event)" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> NEW INN</button>
+      </div>
+    </div>
+    <p>Should you choose to spend the night in the Strathroy area after the reception, we have compiled a list of local hotels, inns, and B&Bs. Book soon, as they may fill up weeks before the wedding!<p>
+    <p>Click on the hotel's name to be taken to the website.</p>
+    <table class="table table-hover table-responsive-md">
+      <thead>
+        <tr>
+          <th>INN</th>
+          <th>ADDRESS</th>
+          <th>PHONE NUMBER</th>
+          <th ng-show="isLoggedIn"></th>
+          <th ng-show="isLoggedIn"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="i in inns" ng-click="null">
+            <td><md-button ng-href="{{ i.url }}" class="inn-btn" target="_blank">{{ i.name }}</md-button></td>
+            <td><md-button ng-href="{{i.address}}" class="inn-btn" target="_blank">{{ i.address }}</md-button></td>
+            <td><md-button class="inn-btn" ng-href="tel:{{ i.phoneNumber }}">{{ i.phoneNumber }}</md-button></td>
+            <td><span ng-show="isLoggedIn" class="glyphicon glyphicon-edit hoverable-edit md-secondary" ng-click="openUpdateInnModal($event, $index)"></td>
+            <td><span ng-show="isLoggedIn" class="table-remove glyphicon glyphicon-remove hoverable-remove md-secondary" ng-click="delete(i._id)"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</md-content>

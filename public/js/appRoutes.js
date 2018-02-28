@@ -18,13 +18,17 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             templateUrl: 'views/guest.html',
             controller: 'GuestController'
         })
-        .when('/announcements', {
-            templateUrl: 'views/announcement.html',
-            controller: 'AnnouncementController'
+        .when('/inns', {
+            templateUrl: 'views/inn.html',
+            controller: 'InnController'
         })
         .when('/songs', {
             templateUrl: 'views/song.html',
             controller: 'SongController'
+        })
+        .when('/rsvp', {
+            templateUrl: 'views/rsvp.html',
+            controller: 'RSVPController'
         })
         .when('/login', {
             templateUrl: 'views/login.html',
@@ -40,6 +44,10 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             templateUrl: 'views/profile.html',
             controller: 'ProfileCtrl',
             controllerAs: 'vm'
+        })
+        .when('/songlist', {
+            templateUrl: 'views/songlist.html',
+            controller: 'SongListController'
         });
 
     $locationProvider.html5Mode(true);

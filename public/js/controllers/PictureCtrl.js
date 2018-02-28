@@ -1,4 +1,4 @@
-angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureController', ['$scope', '$rootScope', '$window', 'Picture', 'Upload', 'authentication', function($scope, $rootScope, $window, Picture, Upload, authentication) {
+angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureController', ['$scope', '$rootScope', '$window', '$location', 'Picture', 'Upload', 'authentication', function($scope, $rootScope, $window, $location, Picture, Upload, authentication) {
 
   // Initialization
   $rootScope.isLoggedIn = authentication.isLoggedIn();
@@ -48,6 +48,10 @@ angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureC
       picObj.deletable = false;
       $scope.images.push(picObj);
     }
+    if($rootScope.isLoggedIn){
+      var delBtns = document.getElementsByClassName("delete-button");
+      delBtns.style.display = 'block';
+    }
   }
 
   // Open an image as a modal
@@ -56,8 +60,8 @@ angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureC
   };
 
   // Deletes an picture by ID
-  $scope.delete = function(id) {
-    Picture.delete(id)
+  $scope.delete = function(id, filename) {
+    Picture.delete(id, filename)
       .then(function (response) {
         get(); // Refresh table
       }, function (error) {
@@ -77,7 +81,7 @@ angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureC
 
   $scope.upload = function (file) {
       Upload.upload({
-          url: 'http://localhost:8080/api/upload', // webAPI exposed to upload the file
+          url: $location.absUrl().replace('/pictures', '') + '/api/upload', // webAPI exposed to upload the file
           data:{file:file} // pass file as data, should be user ng-model
       }).then(function (resp) { // upload function returns a promise
           if(resp.data.error_code === 0){ // validate success

@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope', '$rootScope', '$interval', '$mdDialog', 'WEDDING_DATE', 'authentication', 'Guest', function($scope, $rootScope, $interval, $mdDialog, WEDDING_DATE, authentication, Guest) {
+angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope', '$rootScope', '$location', '$anchorScroll', '$interval', '$mdDialog', 'WEDDING_DATE', 'authentication', 'Guest', function($scope, $rootScope, $location, $anchorScroll, $interval, $mdDialog, WEDDING_DATE, authentication, Guest) {
     $rootScope.isLoggedIn = authentication.isLoggedIn();
     $scope.countdowndate = WEDDING_DATE.getTime();
     $scope.show = true;
@@ -8,51 +8,6 @@ angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope'
     $rootScope.logout = function(){
       authentication.logout();
       $rootScope.isLoggedIn = authentication.isLoggedIn();
-    }
-
-    $scope.openRSVPModal = function(ev) {
-      //$scope.modal.modal("show");
-      $mdDialog.show({
-        controller: RSVPGuestDialogController,
-        templateUrl: '../../views/modals/rsvp-modal.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-      })
-      .then(function(guestData) {
-          $scope.RSVPGuest(guestData);
-        }, function() {
-        });
-    }
-
-
-    // Update the guest with data returned from hiding the modal.
-    $scope.RSVPGuest = function(guestData){
-      Guest.rsvp(guestData)
-        .then(function (response) {
-        }, function (error) {
-          console.log("RSVP unsuccessful.")
-        });
-    }
-
-
-    function RSVPGuestDialogController($scope, $mdDialog) {
-      $scope.authCode = '';
-      $scope.numAttending = '';
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-      $scope.submitData = function() {
-        var guestData =
-          '{"authCode":"' + $scope.authCode + '",' +
-            '"numAttending":"' + parseInt($scope.numAttending) + '"' +
-        '}'; // The guest data
-        $mdDialog.hide(guestData);
-      };
     }
 
 
@@ -74,5 +29,11 @@ angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope'
         clearInterval(x);
         $scope.timeleft = "The countdown is over";
       }
+    }
+
+    $scope.scrollDown = function() {
+      $location.hash("info-caption");
+      $anchorScroll();
+      console.log("Wergh");
     }
 }]);

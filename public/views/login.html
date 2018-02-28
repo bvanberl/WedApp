@@ -1,11 +1,17 @@
-<form ng-submit="vm.onSubmit()">
-  <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
+<md-content layout-padding md-theme="wedappTheme">
+  <br/>
+  <div class="elevated-box">
+    <form ng-submit="vm.onSubmit()">
+      <h1>Log In</h1>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password">
+      </div>
+      <md-button class="md-raised md-accent" type="submit">Log In</md-button>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password">
-  </div>
-  <button type="submit" class="btn btn-default">Log In</button>
-</form>
+</md-content>
