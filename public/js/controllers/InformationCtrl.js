@@ -27,10 +27,6 @@ angular.module('InformationCtrl', ['ngAnimate']).controller('InformationControll
     }
   }
 
-  $scope.sendToRegistry = function() {
-    window.open('http://www2.thebay.com/giftregistry/', '_blank');
-  }
-
   $window.LoadMaps = function() {
     var myCenter = new google.maps.LatLng(42.987104,-81.249979);
     var mapCanvas = document.getElementById("ceremonyMap");

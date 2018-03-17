@@ -4,27 +4,41 @@
   --black: #000000;
   --very_light_gray: #F0F0F0;
   --light_gray: #E0E0E0;
-  --medium_gray: #909090;
+  --medium_gray: #B0B0B0;
+  --medium_dark_gray: #808080;
   --dark_gray: #404040;
   --champagne: #F7E7CE;
+  --light_champagne: #FBF2E4;
 }
 
 body {
   font-family: 'Fenix', serif;
 }
 
-nav {
-  background: transparent !important;
-  z-index: 3;
-  border-width: 0 !important;
-}
-
 md-list-item .md-button {
   padding: 0 !important;
 }
 
+md-sidenav {
+  background-color: var(--light_champagne) !important;
+}
+
+md-sidenav * {
+  color: var(--dark_gray);
+}
+
+md-menu-content  {
+  background-color: white !important;
+}
+
+md-menu-content * {
+  color: var(--dark_gray) !important;
+}
+
 td {
   vertical-align: middle !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 input[name=search] {
@@ -143,8 +157,11 @@ input[name=search]:focus {
 }
 
 .inn-btn {
-  padding: 6px 0px 6px 0px;
+  padding: 6px 8px 6px 8px;
   margin: 0;
+  text-transform: none;
+  min-width: 100%;
+  text-align: left;
 }
 
 .search-results-container {
@@ -208,28 +225,22 @@ input[type=text], input[type=password] {
 }
 
 .upload-btn {
-  background-color: #C0C0C0;
-  padding: 10px 40px 0px 40px;
-  font-size: 14px;
-  position: fixed;
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  border:1px solid #000000;
+  background-color: var(--light_gray);
+  color: var(--dark_gray);
+  padding: 15px 10px 15px 10px;
+  font-size: 20px;
+  border:1px solid var(--medium_gray);
   border-radius: 5px;
   z-index: 2;
   text-align: center;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .upload-btn:hover{
-  background-color: #808080;
-  color: #FFFFFF;
-  border-color: #FFFFFF;
+  background-color: var(--champagne);
+  border-color: var(--dark_gray);
   cursor: pointer;
-  padding: 15px 45px 5px 45px;
 }
 
 /* Center the image and position the close button */
@@ -248,6 +259,10 @@ img.avatar {
     padding: 16px;
 }
 
+.container-no-padding {
+  padding: none !important;
+}
+
 span.psw {
     float: right;
     padding-top: 16px;
@@ -264,21 +279,18 @@ span.psw {
 }
 
 .registry-link {
-  border: 1px solid black;
-  border-radius: 15px;
-  width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 }
 
 .registry-link:hover {
-  background-color: var(--light_gray);
+  background-color: var(--champagne) !important;
+  border-color: var(--dark_gray) !important;
+}
+
+.registry-logo {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .enclosed-img {
@@ -331,10 +343,12 @@ span.psw {
     animation: animatezoom 0.6s
 }
 
-.centeritem {
+.center-item {
   text-align: center;
   align-items: center;
-  justify-content: center;
+  vertical-align: middle;
+  display: inline-block;
+  float: none;
   margin: 0;
 }
 
@@ -406,7 +420,7 @@ html, body, .ng-scope, .container-fluid, .row {
 .navbar a {
     float: left;
     font-size: 16px;
-    color: var(--medium_gray);
+    color: var(--medium_dark_gray);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -415,6 +429,7 @@ html, body, .ng-scope, .container-fluid, .row {
 .dropdown {
     float: right;
     overflow: hidden;
+    z-index: 10 !important;
 }
 
 .dropdown .dropbtn {
@@ -660,11 +675,18 @@ div.panel {
     margin: 15px 0px 0px 15px;
 }
 
+#BBB-logo {
+  margin: 43px 0px 43px 0px;
+}
+
 @media only screen and (max-device-width: 1024px) {
   .navbar {
     display: none;
   }
 
+  .elevated-box {
+    margin: 15px 15px 15px 15px;
+  }
 
   #mobile-menu-btn {
     display: block;

@@ -11,6 +11,7 @@ var jwt            = require('express-jwt');
 var multer         = require('multer');
 var request        = require('request');
 var fs             = require('fs');
+var thumb          = require('node-thumbnail').thumb;
 var auth = jwt({
   secret: 'MY_SECRET',
   userProperty: 'payload'
@@ -152,12 +153,26 @@ router.route('/pictures')
     .post(function(req, res) {
         var picture = new Picture();      // create a new instance of the picture model
         picture.filename = req.body.filename;
-        // save the picture and check for errors
+        console.log(req.body);
+        picture.thumbFilename = picture.filename.replace('.','_thumb.');
         picture.save(function(err) {
             if (err)
                 res.send(err);
-            res.json({ message: 'Picture created!' });
+            if(picture.filename){
+              thumb({
+                source: './public/img/pictures/' + picture.filename,
+                destination: './public/img/thumbnails/',
+                width: 200
+              }).then(function() {
+                console.log('Thumbnail created.');
+                res.json({ message: 'Picture created!' });
+              }).catch(function(e) {
+                console.log('Error', e.toString());
+              });
+            }
         });
+        // Create thumbnail image
+
     })
     // get all the pictures (accessed at GET http://localhost:8080/api/pictures)
     .get(function(req, res) {
@@ -180,6 +195,7 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
             if (err)
                 res.send(err);
             picture.filename = req.body.filename;
+            picture.thumbFilename = picture.thumbFilename;
             picture.save(function(err) {
                 if (err)
                     res.send(err);
@@ -188,14 +204,27 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
         });
     })
     .delete(function(req, res) {
-        fs.unlinkSync('./public/img/pictures/' + req.params.filename);
-        Picture.remove({
-            _id: req.params.picture_id
-        }, function(err, picture) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Picture successfully deleted' });
-        });
+       // Delete the picture, then its thumbnail.
+       Picture.findById(req.params.picture_id, function(err, picture) {
+           if (err)
+             res.send(err);
+           fs.unlink('./public/img/pictures/' + picture.filename, function(err) {
+             if(err)
+               console.log(err);
+           });
+           fs.unlink('./public/img/thumbnails/' + picture.thumbFilename, function(err) {
+             if(err)
+               console.log(err);
+           });
+           // Remove the picture entry from the database.
+           Picture.remove({
+               _id: req.params.picture_id
+           }, function(err, picture) {
+               if (err)
+                   res.send(err);
+           });
+           res.json({ message: 'Picture successfully deleted' });
+       });
     });
 
 
@@ -437,7 +466,12 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
                res.json({error_code:1,err_desc:err});
                return;
           }
-           res.json({error_code:0,err_desc:null,filename:req.file.filename});
+          if(req.file){
+            res.json({error_code:0,err_desc:null,filename:req.file.filename});
+          }
+          else {
+            res.json({error_code:1});
+          }
           })
         });
 

@@ -2,7 +2,8 @@ angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureC
 
   // Initialization
   $rootScope.isLoggedIn = authentication.isLoggedIn();
-  $scope.folder = "../img/pictures/";
+  $scope.picFolder = "../img/pictures/";
+  $scope.thumbFolder = "../img/thumbnails/";
   $scope.conf = {};
   $scope.methods = {};
   get();
@@ -43,14 +44,10 @@ angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureC
       var picObj = new Object();
       picObj.id = i;
       picObj.title = "Image " + (i+1);
-      picObj.url = $scope.folder + $scope.pictures[i].filename;
-      picObj.thumbUrl = picObj.url;
+      picObj.url = $scope.picFolder + $scope.pictures[i].filename;
+      picObj.thumbUrl = $scope.thumbFolder + $scope.pictures[i].filename;
       picObj.deletable = false;
       $scope.images.push(picObj);
-    }
-    if($rootScope.isLoggedIn){
-      var delBtns = document.getElementsByClassName("delete-button");
-      delBtns.style.display = 'block';
     }
   }
 
@@ -60,7 +57,8 @@ angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureC
   };
 
   // Deletes an picture by ID
-  $scope.delete = function(id, filename) {
+  $scope.delete = function($event, id, filename) {
+    $event.stopPropagation();
     Picture.delete(id, filename)
       .then(function (response) {
         get(); // Refresh table

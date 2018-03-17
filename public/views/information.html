@@ -3,7 +3,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-sm-12">
-        <md-tabs md-dynamic-height md-border-bottom class="info-tabs">
+        <h1>Schedule</h1>
+        <md-tabs md-dynamic-height md-border-bottom class="info-tabs md-hue-2" md-swipe-content md-enable-disconnec>
           <md-tab label="Ceremony">
             <md-content>
               <div class="container event-info-container">
@@ -96,10 +97,17 @@
         </md-tabs>
       </div>
       <div class="col-md-4 col-sm-12">
-        <p class="centeritem">The bridge and groom are registered at The Bay.</p>
-        <br/>
-        <div class="registry-link" ng-click="sendToRegistry()">
-          SEE THE REGISTRY
+        <h1>Registry</h1>
+        <div class="elevated-box registry-link">
+          <a href="http://giftregistry.hbc.com/grworks/prj/generic_online/jsp/common/marcole_grw.jsp?rid=5" target="_blank">
+            <img src="../img/home_outfitters_logo.svg" class="registry-logo"></img>
+          </a>
+        </div>
+        <br>
+        <div class="elevated-box registry-link">
+          <a href="https://www.bedbathandbeyond.ca/store/page/Registry" target="_blank">
+            <img src="../img/bed_bath_beyond_logo.png" class="registry-logo" id="BBB-logo"></img>
+          </a>
         </div>
       </div>
     </div>

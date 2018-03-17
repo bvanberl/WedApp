@@ -74,23 +74,36 @@
       <a ng-show="!isLoggedIn" href="/login">LOG IN</a>
     </div>
     <div class="dropdown">
-      <button ng-show="isLoggedIn" class="dropbtn">ADMIN
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="/profile">View Profile</a>
-        <a href="/register">New Profile</a>
-        <a href="/guests">Guests</a>
-        <a href="/songlist">Song Requests</a>
-        <hr class="dropdown-divider">
-        <a ng-click="logout()">Log Out</a>
-      </div>
+      <md-menu md-position-mode="target-right target">
+        <md-button ng-show="isLoggedIn" ng-mouseenter="$mdMenu.open()">
+          ADMIN
+          <i class="fa fa-caret-down"></i>
+        </md-button>
+        <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+          <md-menu-item>
+            <md-button ng-href="/profile">VIEW PROFILE</md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-href="/register">NEW PROFILE</md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-href="/guests">GUESTS</md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-href="/songlist">SONG REQUESTS</md-button>
+          </md-menu-item>
+          <md-divider></md-divider>
+          <md-menu-item>
+            <md-button ng-click="logout()">LOG OUT</md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
     </div>
   </div>
 
   <div layout="column" ng-cloak>
     <section layout="row" flex>
-        <md-sidenav md-theme="wedappTheme" class="md-sidenav-left" md-component-id="left" md-is-locked-open="false" md-whiteframe="4">
+        <md-sidenav md-theme="wedappTheme" class="md-sidenav-left" md-component-id="left" md-is-locked-open="false" md-whiteframe="4" md-swipe-left="toggle()">
           <md-toolbar class="md-accent">
             <h1 class="md-toolbar-tools">Menu</h1>
           </md-toolbar>
@@ -112,45 +125,47 @@
             </md-button>
             <md-divider></md-divider>
           </md-toolbar>
-          <md-content>
+          <md-toolbar class="md-accent md-hue-1">
             <md-button ng-show="!isLoggedIn" ng-click="toggle()" class="md-primary" hide-gt-md>
               <a href="/login">LOG IN</a>
             </md-button>
-            <md-button ng-show="isLoggedIn" ng-click="openAdminMenu($mdMenu, $event)" class="md-primary" hide-gt-md>
-              ADMIN
-            </md-button>
-            <md-menu-content width="4">
-              <md-menu-item>
-                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                  <a href="/profile">VIEW PROFILE</a>
-                </md-button>
-              </md-menu-item>
-              <md-menu-item>
-                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                  <a href="/register">NEW PROFILE</a>
-                </md-button>
-              </md-menu-item>
-              <md-menu-item>
-                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                  <a href="/guests">GUESTS</a>
-                </md-button>
-              </md-menu-item>
-              <md-menu-item>
-                <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                  <a href="/songlist">SONG REQUESTS</a>
-                </md-button>
-              </md-menu-item>
-              <md-menu-divider></md-menu-divider>
-              <md-menu-item>
-                <md-button ng-click="toggle();logout()" class="md-primary" hide-gt-md>
-                  <a href="/">LOG OUT</a>
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
+            <md-menu>
+              <md-button ng-show="isLoggedIn" ng-click="$mdMenu.open($event)" class="md-primary" hide-gt-md>
+                ADMIN
+              </md-button>
+              <md-menu-content width="4">
+                <md-menu-item>
+                  <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                    <a href="/profile">VIEW PROFILE</a>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                    <a href="/register">NEW PROFILE</a>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                    <a href="/guests">GUESTS</a>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
+                    <a href="/songlist">SONG REQUESTS</a>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                  <md-button ng-click="toggle();logout()" class="md-primary" hide-gt-md>
+                    <a href="/">LOG OUT</a>
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
             <md-button ng-click="closeSidenav()" class="md-primary" hide-gt-md>
               Close
             </md-button>
-          </md-content>
+          </md-toolbar>
         </md-sidenav>
         <div flex md-theme="wedappTheme">
           <md-button ng-click="toggle()" ng-hide="isOpen()" aria-label="menu" class="md-fab md-accent" id="mobile-menu-btn">

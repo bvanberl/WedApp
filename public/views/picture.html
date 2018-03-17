@@ -1,40 +1,34 @@
 <md-content class="md-padding overflow-content">
-  <div class="centeritem">
-  <div class="button upload-btn" ngf-select="upload($file)">
-    <i class="fa fa-cloud-upload" style="font-size:40px" aria-hidden="true"></i>
-    <p>Upload Picture</p>
-  </div>
-  </div>
-  <div class="row">
-    <div>
-      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 thumb" ng-repeat="($i,p) in pictures">
-        <a ng-click="openGallery($i)" style="cursor: pointer" class="image-link">
-          <div ng-click="delete(p._id, p.filename)" class="delete-button">
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
-          </div>
-          <img class="img-thumbnail" ng-src="{{folder + p.filename}}" alt="{{p.filename}}">
-        </a>
+  <div class="container-no-padding">
+    <div class="row">
+      <div class="col-sm-8 col-lg-10">
+        <h1>Pictures</h1>
+      </div>
+      <div class="col-sm-4 col-lg-2" ngf-select="upload($file)">
+        <div class="button upload-btn">
+          <span><i class="fa fa-cloud-upload" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp; Upload Picture</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <md-divider></md-divider>
+  <br/>
+  <md-grid-list
+    md-cols="2" md-cols-sm="3" md-cols-md="4" md-cols-gt-md="6"
+    md-row-height-gt-md="1:1" md-row-height="4:3"
+    md-gutter="8px" md-gutter-gt-sm="4px" >
+      <md-grid-tile ng-repeat="($i,p) in pictures"
+        md-colspan-sm="1"
+        md-colspan-xs="1" >
+        <a ng-click="openGallery($i)" class="image-link">
+          <div ng-show="isLoggedIn" ng-click="delete($event, p._id, p.filename)" class="delete-button">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </div>
+          <img class="img-thumbnail" ng-src="{{thumbFolder + p.thumbFilename}}" alt="{{p.thumbFilename}}">
+        </a>
+      </md-grid-tile>
+  </md-grid-list>
 </md-content>
-<!--
-<md-grid-list
-        md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
-        md-row-height-gt-md="1:1" md-row-height="4:3"
-        md-gutter="8px" md-gutter-gt-sm="4px" >
-
-    <md-grid-tile ng-repeat="($i,p) in pictures"
-                  md-rowspan="{{tile.span.row}}"
-                  md-colspan="{{tile.span.col}}"
-                  md-colspan-sm="1"
-                  md-colspan-xs="1"
-                  ng-class="tile.background" >
-      <md-icon md-svg-icon="{{tile.icon}}"></md-icon>
-      <md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>
-    </md-grid-tile>
-  </md-grid-list>-->
 
 <ng-image-gallery
 	images="images"
