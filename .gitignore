@@ -24,4 +24,6 @@ uploads
 modules/users/client/img/profile/uploads
 config/env/local.js
 config/env/local-*.js
+public/img/pictures/
+public/img/thumbnails/
 *.pem
