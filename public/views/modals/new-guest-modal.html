@@ -1,137 +1,48 @@
-<md-dialog id="new-guest-modal">
+<md-dialog id="new-guest-modal" flex="35%">
   <form ng-cloak>
     <div class="imgcontainer">
       <span ng-click="cancel()" class="close" title="Close Modal">&times;</span>
       <h1 class="modal-title" align="center">New Guest</h1>
     </div>
-    <md-input-container class="md-block">
-      <label>Name of guest/group</label>
-      <input required step="any" name="nameInput" ng-model="iguestname"/>
-      <div ng-messages="rsvpForm.numAttendingInput.$error" multiple md-auto-hide="false">
-        <div ng-message="required">
-          You must enter a name.
-        </div>
-      </div>
-    </md-input-container>
-    <md-checkbox ng-model="irespondedflag" ng-click="responseBehaviour()">
-      Response received yet?
-    </md-checkbox>
-    <div>
-      <md-input-container class="md-block">
-        <label>Number of adults attending (age 12+)</label>
-        <input required type="number" step="any" name="numAttendingInput" ng-model="inumadults" min="1"
-               max="10" ng-pattern="/^[0-9]*$/" ng-disabled="!irespondedflag"/>
-        <div ng-messages="rsvpForm.numAttendingInput.$error" multiple md-auto-hide="false">
-          <div ng-message="required">
-            You must specify the number of adults that will be attending.
-          </div>
-          <div ng-message="min">
-            Please enter a number between 1 and 10.
-          </div>
-          <div ng-message="pattern">
-            Please enter a number between 1 and 10.
-          </div>
-          <div ng-message="max">
-            Please enter a number between 1 and 10.
-          </div>
-        </div>
-      </md-input-container>
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <md-input-container class="md-block">
-            <label>Number of children attending (age 0-11)</label>
-            <input required type="number" step="any" name="numChildAttendingInput" ng-model="inumchildren" min="0"
-                   max="10" ng-pattern="/^[0-9]*$/" ng-disabled="!irespondedflag" ng-change="numChildrenSet()"/>
-            <div ng-messages="rsvpForm.numChildAttendingInput.$error" multiple md-auto-hide="false">
-              <div ng-message="required">
-                You must specify the number of children that will be attending.
-              </div>
-              <div ng-message="min">
-                Please enter a number between 0 and 10.
-              </div>
-              <div ng-message="pattern">
-                Please enter a number between 0 and 10.
-              </div>
-              <div ng-message="max">
-                Please enter a number between 0 and 10.
-              </div>
-            </div>
-          </md-input-container>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <md-input-container class="md-block">
-            <label>Number of child meals requested</label>
-            <input required type="number" step="any" name="numChildMealsInput" ng-model="inumchildrenmeals" min="0"
-                   max="{{inumchildren}}" ng-pattern="/^[0-9]*$/" ng-disabled="!irespondedflag"/>
-            <div ng-messages="rsvpForm.numChildMealsInput.$error" multiple md-auto-hide="false">
-              <div ng-message="required">
-                You must specify the number of children's meals.
-              </div>
-              <div ng-message="min">
-                Please enter a number greater than or equal to 0.
-              </div>
-              <div ng-message="pattern">
-                Please enter a number.
-              </div>
-              <div ng-message="max">
-                Please enter a number less than or equal to the number of children attending.
-              </div>
-            </div>
-          </md-input-container>
-        </div>
-      </div>
-      <md-input-container class="md-block">
-        <label>Dietary restrictions, if applicable</label>
-        <textarea max-rows="10" name="dietTextArea" ng-model="idietaryrestrictions" ng-disabled="!irespondedflag"/>
-      </md-input-container>
-    </div>
-    <div class="modal-footer">
-      <div>
-        <div class="row">
-          <div class="col-md-6">
-            <md-button ng-click="cancel()" class="btn btn-block btn-danger">
-              <span class="glyphicon glyphicon-remove"></span>
-                 Cancel
-            </md-button>
-          </div>
-          <div class="col-md-6">
-            <md-button type="submit" class="btn btn-block btn-success" id="submitbutton" ng-click="submitData()">
-              <span class="glyphicon glyphicon-plus"></span>
-                 Submit
-            </md-button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--
     <div class="container col-md-12">
       <div class="form-group">
-        <label><b>Guest(s) name</b></label>
-        <input type="text" placeholder="Guest(s) name" ng-model="iguestname" class="col-lg-12">
+        <label class="guest-label"><b>Guest(s) name</b></label>
+        <input type="text" placeholder="Guest(s) name" ng-model="iguestname" class="col-lg-12 guest-data">
       </div>
-      <br>
       <div class="form-group">
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-checked="respbox.irespondedflag" ng-model="respbox.irespondedflag" ng-click="responseBehaviour()" id="response-check" checked><b> Response received?</b>
+            <input type="checkbox" ng-checked="respbox.irespondedflag" ng-model="irespondedflag" ng-click="responseBehaviour()" id="response-check" checked><b> Response received?</b>
           </label>
         </div>
       </div>
       <div class="form-group">
-        <label><b>Number of people attending</b></label>
-        <input type="text" pattern="[0-9]*" placeholder="Number attending" ng-model="inumattending" class="col-lg-12" ng-disabled="irespondedflag" id="num-input">
+        <label class="guest-label"><b>Number of adults attending</b></label>
+        <input type="text" pattern="[0-9]*" placeholder="Number of adults" ng-model="inumadults" class="col-lg-12 guest-data" ng-disabled="!irespondedflag">
+      </div>
+      <div class="form-group">
+        <label class="guest-label"><b>Number of children attending</b></label>
+        <input type="text" pattern="[0-9]*" placeholder="Number of children" ng-model="inumchildren" class="col-lg-12 guest-data" ng-disabled="!irespondedflag">
+      </div>
+      <div class="form-group">
+        <label class="guest-label"><b>Number of child meals</b></label>
+        <input type="text" pattern="[0-9]*" placeholder="Number of adults" ng-model="inumchildrenmeals" class="col-lg-12 guest-data" ng-disabled="!irespondedflag">
+      </div>
+      <div class="form-group">
+        <label class="guest-label"><b>Dietary restrictions</b></label>
+        <textarea placeholder="Note any dietary restrictions, if applicable." ng-model="idietaryrestrictions" class="col-lg-12 guest-data" ng-disabled="!irespondedflag"></textarea>
       </div>
     </div>
     <div class="modal-footer">
       <div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-xs-6">
             <button ng-click="cancel()" class="btn btn-block btn-danger">
               <span class="glyphicon glyphicon-remove"></span>
                  Cancel
             </button>
           </div>
-          <div class="col-md-6">
+          <div class="col-xs-6">
             <button class="btn btn-block btn-success" id="submitbutton" ng-click="submitData()">
               <span class="glyphicon glyphicon-plus"></span>
                  Submit
@@ -139,6 +50,6 @@
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
   </form>
 </md-dialog>

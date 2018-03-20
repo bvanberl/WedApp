@@ -10,6 +10,7 @@ angular.module('SongCtrl',[]).controller('SongController', ['$scope', '$rootScop
   };
 
   $scope.onKeywordsChangedEvent = function() {
+      console.log($scope.search_terms)
     Song.getSongs($scope.search_terms, $scope.input_type)
         .then(function (response) {
           $scope.results = response.data.results;

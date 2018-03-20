@@ -35,7 +35,7 @@ md-menu-content * {
   color: var(--dark_gray) !important;
 }
 
-td {
+td, th {
   vertical-align: middle !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -107,6 +107,7 @@ input[name=search]:focus {
   border-radius: 10px;
   max-width: 1200px;
   margin: 15px auto 15px auto;
+  padding: 15px;
 }
 
 .hoverable-remove:hover {
@@ -133,6 +134,16 @@ input[name=search]:focus {
   cursor: pointer;
   display: block;
   height: 100%;
+}
+
+.guest-data {
+  padding: 3px !important;
+  margin: 0 !important;
+  width: 100%;
+}
+
+.guest-label {
+  font-size: 12px;
 }
 
 .guest-info-panel {
@@ -655,9 +666,7 @@ div.panel {
   margin: 20px;
 }
 
-#new-guest-modal {
-  width: 60%;
-}
+
 
 #mobile-menu-btn {
     display: none;

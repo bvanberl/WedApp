@@ -185,6 +185,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     function UpdateGuestDialogController($scope, $mdDialog, id, name, responded, numAdults, numChildren, numChildrenMeals, code) {
       $scope.iid = id;
       $scope.iguestname = name;
+      $scope.irespondedflag = responded;
       $scope.inumadults = numAdults;
       $scope.inumchildren = numChildren;
       $scope.inumchildrenmeals = numChildrenMeals;

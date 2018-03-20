@@ -11,7 +11,6 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
     else {
       document.getElementById("mobile-menu-btn").style.position = "relative";
     }
-    console.log("got here");
   });
 
   $scope.isOpen = function(){
