@@ -17,16 +17,24 @@ var auth = jwt({
   userProperty: 'payload'
 });
 
+// TLS Configuration
+const https = require("https");
+/*const options = {
+  key: fs.readFileSync("/srv/www/keys/my-site-key.pem"),
+  cert: fs.readFileSync("/srv/www/keys/chain.pem")
+};*/
+
 // COLLECTIONS ================================================
 var Guest     = require('./app/models/guest');
 var Inn     = require('./app/models/inn');
 var Picture     = require('./app/models/picture');
 var User     = require('./app/models/user');
 var Song     = require('./app/models/song');
+var GlobalVariable     = require('./app/models/global-var');
 
 
 var db = require('./config/db');
-mongoose.connect(db.url); // connect to our mongoDB data
+mongoose.connect(db.url); // connect to database
 var port = process.env.PORT || 8080; // set port
 
 require('./config/passport');
@@ -285,6 +293,59 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
             });
         });
 
+        // Global Variable ROUTES
+        router.route('/global-vars')
+            // create an globalVariable (accessed at POST http://localhost:8080/api/global-vars)
+            .post(function(req, res) {
+                var globalVariable = new GlobalVariable();      // create a new instance of the globalVariable model
+                globalVariable.identifier = req.body.identifier;
+                var hashedValue = crypto.createHash('sha256').update(req.body.value).digest('base64');
+                globalVariable.value = hashedValue;
+                // save the globalVariable and check for errors
+                globalVariable.save(function(err) {
+                    if (err)
+                        res.send(err);
+                    res.json({ message: 'globalVariable created!' });
+                });
+            })
+            // get all the globalVariables (accessed at GET http://localhost:8080/api/global-vars)
+            .get(function(req, res) {
+                GlobalVariable.find(function(err, globalVariables) {
+                    if (err)
+                        res.send(err);
+                    res.json(globalVariables);
+                });
+            });
+        router.route('/global-vars/:globalVariableIdentifier') // Get a globalVariable by his/her ID
+            .get(function(req, res) {
+                GlobalVariable.findById(req.params.globalVariableIdentifier, function(err, globalVariable) {
+                    if (err)
+                        res.send(err);
+                    res.json(globalVariable);
+                });
+            })
+            .put(function(req, res) {
+                GlobalVariable.findOne({ 'identifier': req.params.globalVariableIdentifier}, function(err, globalVariable) {
+                    if (err)
+                        res.send(err);
+                    globalVariable.value = req.body.value;
+                    globalVariable.save(function(err) {
+                        if (err)
+                            res.send(err);
+                        res.json({ message: 'globalVariable updated!' });
+                    });
+                });
+            })
+            .delete(function(req, res) {
+                GlobalVariable.remove({
+                    identifier: req.params.globalVariableIdentifier
+                }, function(err, globalVariable) {
+                    if (err)
+                        res.send(err);
+                    res.json({ message: 'globalVariable successfully deleted' });
+                });
+            });
+
         // Song ROUTES
         router.route('/songs')
             // create an song (accessed at POST http://localhost:8080/api/songs)
@@ -495,7 +556,7 @@ app.use(function(req, res) {
 
 function run($rootScope, $location, authentication) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
-      if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
+      if ($location.path() !== '/profile' && !authentication.isLoggedIn()) {
         $location.path('/');
       }
     });

@@ -9,7 +9,7 @@
   <input type="radio" ng-model="input_type" value="artist" ng-click="onKeywordsChangedEvent()"> Artist
 </p>
 <div class="search-bar">
-  <input type="text" name="search" ng-model="search_terms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search">
+  <input type="text" name="search" ng-model="search_terms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search" id="song-search-bar">
   <div class="search-results-container">
     <div class="search-result" ng-repeat="result in results" ng-click="requestSong(result)">
       <p class="artist">{{result.artist}}</p>

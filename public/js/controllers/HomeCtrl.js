@@ -31,9 +31,12 @@ angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope'
       }
     }
 
-    $scope.scrollDown = function() {
-      $location.hash("info-caption");
-      $anchorScroll();
-      console.log("Wergh");
+    $scope.expandDown = function() {
+      document.querySelector('#info-caption').scrollIntoView({
+        behavior: 'smooth',
+        block: "start",
+        inline: "nearest"
+      });
+      console.log("rtyh");
     }
 }]);

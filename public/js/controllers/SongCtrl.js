@@ -1,4 +1,4 @@
-angular.module('SongCtrl',[]).controller('SongController', ['$scope', '$rootScope', '$location', 'Song', 'authentication', function($scope, $rootScope, $location, Song, authentication) {
+angular.module('SongCtrl',[]).controller('SongController', ['$scope', '$rootScope', '$location', '$mdDialog', 'Song', 'authentication', function($scope, $rootScope, $location, $mdDialog, Song, authentication) {
 
   // Initialization
   $rootScope.isLoggedIn = authentication.isLoggedIn();
@@ -25,6 +25,17 @@ angular.module('SongCtrl',[]).controller('SongController', ['$scope', '$rootScop
       .then(function (response) {
         $scope.search_terms = "";
         $scope.onKeywordsChangedEvent();
+
+        // Display success dialog
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#song-search-bar')))
+            .clickOutsideToClose(true)
+            .title('Song requested!')
+            .textContent('Your song request was recorded. It may play at the wedding!')
+            .ariaLabel('Song requested')
+            .ok('Done')
+        );
       }, function (error) {
         $scope.status = 'Unable to create new song request: ' + error.message;
       });

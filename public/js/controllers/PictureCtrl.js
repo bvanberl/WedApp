@@ -18,8 +18,10 @@ angular.module('PictureCtrl', ['ngFileUpload','ngAnimate']).controller('PictureC
       Picture.get()
           .then(function (response) {
               $scope.pictures = response.data;
-              sortPictures('filename', false);
-              imagesInit();
+              if($scope.pictures.length > 0){
+                  sortPictures('filename', false);
+                  imagesInit();
+              }
           }, function (error) {
               $scope.status = 'Unable to load picture data: ' + error.message;
           });
