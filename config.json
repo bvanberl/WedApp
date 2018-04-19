@@ -1,0 +1,5 @@
+{
+  "GCLOUD_PROJECT": "wedapp-200213",
+  "DATA_BACKEND": "mongodb",
+  "MONGO_URL": "mongodb://blakeandolivia:bermuda1@ds131511.mlab.com:31511/wedapp"
+}

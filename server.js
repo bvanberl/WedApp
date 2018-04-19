@@ -17,13 +17,6 @@ var auth = jwt({
   userProperty: 'payload'
 });
 
-// TLS Configuration
-const https = require("https");
-/*const options = {
-  key: fs.readFileSync("/srv/www/keys/my-site-key.pem"),
-  cert: fs.readFileSync("/srv/www/keys/chain.pem")
-};*/
-
 // COLLECTIONS ================================================
 var Guest     = require('./app/models/guest');
 var Inn     = require('./app/models/inn');
@@ -34,7 +27,9 @@ var GlobalVariable     = require('./app/models/global-var');
 
 
 var db = require('./config/db');
-mongoose.connect(db.url); // connect to database
+mongoose.connect(db.url, function(err) {
+    if (err) throw err;
+});
 var port = process.env.PORT || 8080; // set port
 
 require('./config/passport');
