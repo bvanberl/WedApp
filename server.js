@@ -28,7 +28,10 @@ var GlobalVariable     = require('./app/models/global-var');
 
 var db = require('./config/db');
 mongoose.connect(db.url, function(err) {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      throw err;
+    }
 });
 var port = process.env.PORT || 8080; // set port
 
