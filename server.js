@@ -1,6 +1,7 @@
 // MODULES =================================================
 var express        = require('express');
 var app            = express();
+var nconf       = require('nconf');
 var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
@@ -25,7 +26,17 @@ var User     = require('./app/models/user');
 var Song     = require('./app/models/song');
 var GlobalVariable     = require('./app/models/global-var');
 
+nconf.argv().env().file('keys.json');
+const user = nconf.get('mongoUser');
+const pass = nconf.get('mongoPass');
+const host = nconf.get('mongoHost');
+const dbPort = nconf.get('mongoPort');
+const databaseName = nconf.get('mongoDatabase');
 
+let uri = `mongodb://${user}:${pass}@${host}:${dbPort}`;
+if (nconf.get('mongoDatabase')) {
+  uri = `${uri}/${nconf.get('mongoDatabase')}`;
+}
 var db = require('./config/db');
 mongoose.connect(db.url, function(err) {
     if (err) {

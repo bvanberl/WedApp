@@ -1,0 +1,7 @@
+{
+  "mongoHost": "35.188.98.102",
+  "mongoPort": "27017",
+  "mongoDatabase": "admin",
+  "mongoUser": "root",
+  "mongoPass": "bermuda1"
+}
