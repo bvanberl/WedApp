@@ -290,6 +290,10 @@ span.psw {
 }
 
 .registry-link {
+  text-align: center;
+  vertical-align: middle;
+  max-width: 500px;
+  min-height: 250px;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 }
@@ -378,7 +382,7 @@ span.psw {
     to {opacity: 1;}
 }
 
-/* Change styles for span and cancel button on extra small screens */
+/* Change styles on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
        display: block;

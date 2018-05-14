@@ -10,15 +10,19 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             templateUrl: 'views/information.html',
             controller: 'InformationController'
         })
-        .when('/pictures', {
+        /*.when('/pictures', {
             templateUrl: 'views/picture.html',
             controller: 'PictureController'
+        })*/
+        .when('/registry', {
+            templateUrl: 'views/registry.html',
+            controller: 'RegistryController'
         })
         .when('/guests', {
             templateUrl: 'views/guest.html',
             controller: 'GuestController'
         })
-        .when('/inns', {
+        .when('/stay', {
             templateUrl: 'views/inn.html',
             controller: 'InnController'
         })

@@ -18,8 +18,9 @@ var app = angular.module('wedapp',
   'SongCtrl',
   'SongService',
   'SongListCtrl',
-  'PictureCtrl',
-  'PictureService',
+  'RegistryCtrl',
+  //'PictureCtrl',
+  //'PictureService',
   'RSVPCtrl',
   'FileUploadCtrl']);
 
