@@ -12,7 +12,7 @@ angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPControll
 
   $scope.numChildrenSet = function() {
     if($scope.potGuest.numChildAttending === 0) {
-      $scope.potGuest.numChildMeals = 0;
+      $scope.potGuest.numChildrenMeals = 0;
     }
   }
 

@@ -3,13 +3,13 @@ angular.module('InformationCtrl', ['ngAnimate']).controller('InformationControll
   $scope.timezone = "America/Halifax";
   $scope.weddingtime = WEDDING_DATE;
   $scope.ceremonyLoc = "St. Peter's Cathedral Basilica";
-  $scope.ceremonyDesc = "The groom's family have been members of this parish for several years.  The ceremony will commence at 11:00 a.m.";
+  $scope.ceremonyDesc = "Free parking will be available to guests in the parking lots adjacent to the basilica.";
   $scope.ceremonyAddr = "196 Dufferin Ave, London, ON N6A 5N6";
-  $scope.cocktailLoc = "Gomes family residence";
-  $scope.cocktailDesc = "The cocktail hour will take place directly following the ceremony at the bride's house in the backyard.  Drinks and hor d'oevres will be provided.  Wedding pictures will be taken during this time at the Coldstream Conservation Area.  The address will be given at the end of the ceremony.";
-  $scope.cocktailAddr = "Gomes Family Residence";
+  $scope.cocktailLoc = "Bride's Family Home";
+  $scope.cocktailDesc = "The garden party will take place directly following the ceremony at the bride's family home. The address has been provided on your wedding invitation. Come enjoy drinks and food with the newlyweds before the reception.";
+  $scope.cocktailAddr = "Bride's Family Home";
   $scope.receptionLoc = "The Portuguese Canadian Club of Strathroy";
-  $scope.receptionDesc = "Delicious food, a great dessert, and a dance to follow!";
+  $scope.receptionDesc = "Celebrate the marriage of the bride and groom with a delicious meal and a dance to follow!";
   $scope.receptionAddr = "375 York St, Strathroy, ON N7G 3T6";
 
   $rootScope.logout = function(){

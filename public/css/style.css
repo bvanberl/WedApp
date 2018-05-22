@@ -56,6 +56,14 @@ md-menu-content * {
   color: var(--dark_gray) !important;
 }
 
+md-tabs-wrapper {
+  border-color: var(--light_gray) !important;
+}
+
+md-ink-bar {
+  height: 3px !important;
+}
+
 md-tab-item {
   color: white !important;
   font-size: 19px !important;
@@ -636,19 +644,17 @@ html, body, .ng-scope, .container-fluid, .row {
 .bg-img {
   background-image: url('../img/home_background.jpg');
   height: 100vh;
-  background-position: top;
+  background-position: 0% 5%;
 }
 
 .bg-img-2 {
   background-image: url("../img/home_background2.jpg");
   min-height: 600px;
-  /*opacity: 0.65;*/
 }
 
 .bg-img-3 {
   background-image: url("../img/home_background3.jpg");
   min-height: 600px;
-  /*opacity: 0.65;*/
 }
 
 @media only screen and (max-device-width: 1024px) {
@@ -769,6 +775,10 @@ div.panel {
   height: 440px;
 	padding: 20px;
 	margin-bottom: 20px;
+}
+
+#cocktail-map {
+  text-align: center;
 }
 
 .map-canvas { height: 400px
