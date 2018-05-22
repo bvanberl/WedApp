@@ -7,9 +7,24 @@
       <div class="col-xs-6  col-sm-4 col-md-2">
         <div ng-show="isLoggedIn">
           <br/>
-          <button ng-click="openNewGuestModal($event)" class="btn btn-success btn-block"><span class="glyphicon glyphicon-plus"></span> New Guest</button>
+          <button ng-click="openNewGuestModal($event)" class="btn btn-success btn-block"><span class="glyphicon glyphicon-plus"></span> <b>NEW GUEST</b></button>
         </div>
       </div>
+    </div>
+  </div>
+  <md-card>
+    <md-card-content class="guest-stats">
+      <h3>Quick stats</h3>
+      <p>Number of guests attending: {{numAttending}}</p>
+      <p>Number of children meals: {{numChildrenMeals}}</p>
+      <p>Number of vegetarian meals: {{numVegMeals}}</p>
+    </md-card-content>
+  </md-card>
+  <br/>
+  <div class="search-bar">
+    <input type="text" name="search" ng-model="searchTerms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search">
+    <div class="search-results-container">
+
     </div>
   </div>
   <div class="row">
@@ -22,20 +37,24 @@
             <th># Adults</th>
             <th># Children</th>
             <th># Children Meals</th>
-            <th>Authorization Code</th>
+            <th># Vegetarian Meals</th>
+            <th>Guest Code</th>
             <th></th>
             <th></th>
           </thead>
           <tbody>
-            <tr ng-repeat="g in guests">
+            <tr ng-repeat="g in guests" ng-show="g.name.toUpperCase().indexOf(searchTerms.toUpperCase()) >= 0">
+              <div>
               <td>{{ g.name }}</td>
               <td>{{ dispResponse(g.responded) }}</td>
               <td>{{ dispNum(g.responded, g.numAdults) }}</td>
               <td>{{ dispNum(g.responded, g.numChildren) }}</td>
               <td>{{ dispNum(g.responded, g.numChildrenMeals) }}</td>
+              <td>{{ dispNum(g.responded, g.numVegMeals) }}</td>
               <td>{{ g.authCode }}</td>
               <td class="min-size"><span class="glyphicon glyphicon-edit hoverable-edit" ng-click="openUpdateGuestModal($event, $index)">&nbsp;</td>
               <td class="min-size"><span class="table-remove glyphicon glyphicon-remove hoverable-remove" ng-click="delete(g._id)"></td>
+              </div>
             </tr>
           </tbody>
         </table>

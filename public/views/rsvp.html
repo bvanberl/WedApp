@@ -25,7 +25,7 @@
           <label>Number of adults attending (age 12+)</label>
           <input required type="number" step="any" name="numAttendingInput" ng-model="potGuest.numAdultAttending" min="1"
                  max="10" ng-pattern="/^[0-9]*$/" ng-disabled="!isAttending"/>
-          <div ng-messages="rsvpForm.numAttendingInput.$error" multiple md-auto-hide="false">
+          <div ng-messages="rsvpForm.numAttendingInput.$error" multiple md-auto-hide="true">
             <div ng-message="required">
               You must specify the number of adults that will be attending.
             </div>
@@ -46,7 +46,7 @@
               <label>Number of children attending (age 0-11)</label>
               <input required type="number" step="any" name="numChildAttendingInput" ng-model="potGuest.numChildAttending" min="0"
                      max="10" ng-pattern="/^[0-9]*$/" ng-disabled="!isAttending" ng-change="numChildrenSet()"/>
-              <div ng-messages="rsvpForm.numChildAttendingInput.$error" multiple md-auto-hide="false">
+              <div ng-messages="rsvpForm.numChildAttendingInput.$error" multiple md-auto-hide="true">
                 <div ng-message="required">
                   You must specify the number of children that will be attending.
                 </div>
@@ -67,7 +67,7 @@
               <label>Number of child meals requested</label>
               <input required type="number" step="any" name="numChildMealsInput" ng-model="potGuest.numChildrenMeals" min="0"
                      max="{{potGuest.numChildAttending}}" ng-pattern="/^[0-9]*$/" ng-disabled="!isAttending"/>
-              <div ng-messages="rsvpForm.numChildMealsInput.$error" multiple md-auto-hide="false">
+              <div ng-messages="rsvpForm.numChildMealsInput.$error" multiple md-auto-hide="true">
                 <div ng-message="required">
                   You must specify the number of children's meals.
                 </div>
@@ -84,9 +84,22 @@
             </md-input-container>
           </div>
         </div>
+        <p>How many people attending require a vegetarian meal? Please specify below.</p>
         <md-input-container class="md-block">
-          <label>Dietary restrictions, if applicable</label>
-          <textarea max-rows="10" name="dietTextArea" ng-model="potGuest.dietaryRestrictions" ng-disabled="!isAttending"/>
+          <label>Number of vegetarian meals</label>
+          <input type="number" step="any" name="numVegMealsInput" ng-model="potGuest.numVegMeals" min="0"
+                 max="{{potGuest.numChildAttending + potGuest.numAdultAttending}}" ng-pattern="/^[0-9]*$/" ng-disabled="!isAttending"/>
+          <div ng-messages="rsvpForm.numVegMealsInput.$error" multiple md-auto-hide="true">
+            <div ng-message="min">
+              Please enter a number greater than or equal to 0.
+            </div>
+            <div ng-message="pattern">
+              Please enter a number.
+            </div>
+            <div ng-message="max">
+              Please enter a number less than or equal to the number of children attending.
+            </div>
+          </div>
         </md-input-container>
       </div>
       <br>

@@ -4,8 +4,8 @@
     .module('wedapp')
     .service('authentication', authentication);
 
-  authentication.$inject = ['$http', '$window'];
-  function authentication ($http, $window) {
+  authentication.$inject = ['$http', '$window', '$location'];
+  function authentication ($http, $window, $location) {
 
     var saveToken = function (token) {
       $window.localStorage['wedapp-token'] = token;
@@ -65,6 +65,7 @@
 
     logout = function() {
       $window.localStorage.removeItem('wedapp-token');
+      $location.path('/');
     };
 
     return {

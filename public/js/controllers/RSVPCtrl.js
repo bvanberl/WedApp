@@ -17,7 +17,6 @@ angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPControll
   }
 
   $scope.expand = function() {
-    console.log($scope.isAttending);
     if ($scope.isAttending === true){
       $scope.panel.style.maxHeight = $scope.panel.scrollHeight + "px";
     } else {
@@ -30,12 +29,15 @@ angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPControll
     if($scope.potGuest.authCode) {
       var guestData;
       if($scope.isAttending){
+        if(!$scope.potGuest.numVegMeals) {
+          $scope.potGuest.numVegMeals = 0;
+        }
         guestData =
           '{"authCode":"' + $scope.potGuest.authCode + '",' +
             '"numAdults":"' + parseInt($scope.potGuest.numAdultAttending) + '",' +
             '"numChildren":"' + parseInt($scope.potGuest.numChildAttending) + '",' +
             '"numChildrenMeals":"' + parseInt($scope.potGuest.numChildrenMeals) + '",' +
-            '"dietaryRestrictions":"' + $scope.potGuest.dietaryRestrictions + '"' +
+            '"numVegMeals":"' + $scope.potGuest.numVegMeals + '"' +
         '}';
       }
       else {
@@ -44,7 +46,7 @@ angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPControll
             '"numAdults":"0",' +
             '"numChildren":"0",' +
             '"numChildrenMeals":"0",' +
-            '"dietaryRestrictions":"N/A"' +
+            '"numVegMeals":"0"' +
         '}';
       }
     }
@@ -54,8 +56,7 @@ angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPControll
       .then(function (response) {
           console.log(response);
           if(response.status === 200) {
-
-            if(response.message == "Complete"){
+            if(response.data.message == "SUCCESS"){
               // Show confirm dialog.
               $mdDialog.show(
                 $mdDialog.alert()

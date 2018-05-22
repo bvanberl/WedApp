@@ -4,8 +4,8 @@
     .module('wedapp')
     .controller('ProfileCtrl', ProfileCtrl);
 
-  ProfileCtrl.$inject = ['$rootScope', '$location', 'meanData'];
-  function ProfileCtrl($rootScope, $location, meanData) {
+  ProfileCtrl.$inject = ['$rootScope', '$location', 'meanData', 'authentication'];
+  function ProfileCtrl($rootScope, $location, meanData, authentication) {
 
     $rootScope.logout = function(){
       authentication.logout();
@@ -19,7 +19,6 @@
     meanData.getProfile()
       .then(function(data) {
         vm.user = data.data;
-        console.log(vm.user);
       });
   }
 

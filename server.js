@@ -87,7 +87,10 @@ router.route('/guests')
         var guest = new Guest();      // create a new instance of the Guest model
         guest.name = req.body.name;
         guest.responded = req.body.responded;
-        guest.numAttending = req.body.numAttending;
+        guest.numAdults = req.body.numAdults;
+        guest.numChildren = req.body.numChildren;
+        guest.numChildrenMeals = req.body.numChildrenMeals;
+        guest.numVegMeals = req.body.numVegMeals;
         guest.authCode = req.body.authCode;
         // save the guest and check for errors
         guest.save(function(err) {
@@ -119,7 +122,10 @@ router.route('/guests/:guest_id') // Get a guest by his/her ID
                 res.send(err);
             guest.name = req.body.name;
             guest.responded = req.body.responded;
-            guest.numAttending = req.body.numAttending;
+            guest.numAdults = req.body.numAdults;
+            guest.numChildren = req.body.numChildren;
+            guest.numChildrenMeals = req.body.numChildrenMeals;
+            guest.numVegMeals = req.body.numVegMeals;
             guest.authCode = req.body.authCode;
             guest.save(function(err) {
                 if (err)
@@ -141,7 +147,6 @@ router.route('/guests/:guest_id') // Get a guest by his/her ID
 router.route('/guests/rsvp')
   .post(function(req, res){
       Guest.findOne({ 'authCode': req.body.authCode }, function(err, guest1) {
-        console.log(guest1);
           if (err || guest1 == null)
               res.json({message: 'Error'});
           else {
@@ -151,14 +156,14 @@ router.route('/guests/rsvp')
             guest1.numAdults = req.body.numAdults;
             guest1.numChildren = req.body.numChildren;
             guest1.numChildrenMeals = req.body.numChildrenMeals;
-            guest1.dietaryRestrictions = req.body.dietaryRestrictions;
+            guest1.numVegMeals = req.body.numVegMeals;
             guest1.authCode = req.body.authCode;
             guest1.save(function(err) {
                 if (err)
                     res.json({ message: err});
                     return;
             });
-            res.json({ message: 'Complete' });
+            res.json({ message: 'SUCCESS' });
           }
   });
 });

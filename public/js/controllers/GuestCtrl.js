@@ -10,6 +10,10 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     $scope.irespondedflag = false;
     $scope.inumattending = 0;
     $scope.modal = document.getElementById('new-guest-modal');
+    $scope.numAttending = 0;
+    $scope.numChildrenMeals = 0;
+    $scope.numVegMeals = 0;
+    $scope.searchTerms = "";
 
     $rootScope.logout = function(){
       authentication.logout();
@@ -27,18 +31,23 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     };
 
     // Get sum of number of guests attending.
-    $scope.getGuestCount = function(){
+    $scope.getGuestCounts = function(){
       if(Object.keys( $scope.guests ).length > 0) {
-        var sum = 0;
         for(i = 0; i < $scope.guests.length; i++)
         {
-          sum += $scope.guests[i].numAttending;
+          if($scope.guests[i].responded){
+            console.log($scope.guests[i]);
+            $scope.numAttending = 0;
+            $scope.numChildrenMeals = 0;
+            $scope.numVegMeals = 0;
+            $scope.numAttending += $scope.guests[i].numAdults;
+            $scope.numAttending += $scope.guests[i].numChildren;
+            $scope.numChildren += $scope.guests[i].numChildrenMeals;
+            $scope.numVegMeals += $scope.guests[i].numVegMeals;
+          }
         }
-        return sum;
       }
-      else {
-        return "unknown";
-      }
+      return;
     };
 
 
@@ -110,7 +119,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
             .then(function (response) {
                 $scope.guests = response.data;
                 sortGuests('name', true);
-                $scope.tagline = $scope.getGuestCount() + " guests confirmed attending.";
+                $scope.getGuestCounts();
             }, function (error) {
                 $scope.status = 'Unable to load guest data: ' + error.message;
             });
@@ -218,6 +227,10 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
         '}'; // The guest data
         $mdDialog.hide(guestData);
       };
+
+      $scope.onKeywordsChangedEvent = function() {
+
+      }
     }
 
 

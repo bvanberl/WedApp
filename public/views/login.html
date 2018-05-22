@@ -1,17 +1,21 @@
-<md-content layout-padding md-theme="wedappTheme">
-  <br/>
-  <div class="elevated-box">
-    <form ng-submit="vm.onSubmit()">
-      <h1>Log In</h1>
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password">
-      </div>
-      <md-button class="md-raised md-accent" type="submit">Log In</md-button>
-    </form>
-  </div>
+<md-content class="background-container">
+  <md-content class="max-width-container">
+    <br/>
+    <div>
+      <form ng-submit="vm.onSubmit()">
+        <h1>Log In</h1>
+        <p>Please note that this is a portal for website administrators only.  If you wish to RSVP, please do so by returning to the home page and clicking on the RSVP button.</p>
+        <br/>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control transparent-input" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control transparent-input" id="password" placeholder="Password" ng-model="vm.credentials.password">
+        </div>
+        <md-button class="md-raised md-accent" type="submit"><b>Log In</b></md-button>
+      </form>
+    </div>
+  </md-content>
 </md-content>

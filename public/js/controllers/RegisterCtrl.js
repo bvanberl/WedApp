@@ -28,7 +28,9 @@
       authentication
         .register(vm.credentials)
         .then(function(){
-          $location.path('profile');
+          setTimeout(function (){
+            $location.path('admin/profile');
+          }, 300);
         });
     };
 

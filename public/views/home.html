@@ -6,13 +6,13 @@
       <p ng-bind="timeleft"></p>
       <a href="/rsvp"><button class="rsvp-btn">RSVP</button></a>
       <p>
-        <button class="expand-down-btn" ng-click="expandDown()">
+        <button class="expand-btn expand-down-btn" ng-click="expandDown()">
           <span class="glyphicon glyphicon-menu-down"></span>
         </button>
       </p>
     </div>
   </div>
-  <a href="/information" class="home-box-a" id="info-caption">
+  <a href="/details" class="home-box-a" id="info-caption">
     <div style="position:relative;">
       <div class="home-box-light">
         <h2 class="spaced-heading">Saturday September 8, 2018 at 11:00</h2>
@@ -22,27 +22,26 @@
   </a>
 
 <div class="bg-img-2">
-  <div class="caption">
-    <a href="/inns"><button class="rsvp-btn">Check out local accomodations!</button></a>
-  </div>
 </div>
 
 <a href="/registry" class="home-box-a">
   <div style="position:relative;">
     <div class='home-box-dark'>
-      <p>Get more information on the bride and groom's registry.</p>
+      <h4>Get more information on the bride and groom's registry.</h4>
     </div>
   </div>
 </a>
 
 <div class="bg-img-3">
   <div class="caption">
-    <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">SCROLL UP</span>
+    <button class="expand-btn expand-up-btn" ng-click="scrollToTop()">
+      <span class="glyphicon glyphicon-menu-up"></span>
+    </button>
   </div>
 </div>
 
-<div style="position:relative;">
-  <div class="home-box-dark">
-    <p>Request songs for the DJ!</p>
+<div>
+  <div class="home-box-bottom">
+    <p>Website design and development by Blake VanBerlo</p>
   </div>
 </div>

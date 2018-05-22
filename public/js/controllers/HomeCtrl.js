@@ -37,6 +37,13 @@ angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope'
         block: "start",
         inline: "nearest"
       });
-      console.log("rtyh");
+    }
+
+    $scope.scrollToTop = function() {
+      document.querySelector('.navbar').scrollIntoView({
+        behavior: 'smooth',
+        block: "start",
+        inline: "nearest"
+      });
     }
 }]);

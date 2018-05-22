@@ -3,6 +3,7 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
   $rootScope.isLoggedIn = authentication.isLoggedIn();
   $scope.toggle = buildToggler('left');
 
+  // Changes to navbar or mobile menu button when on the home route
   $rootScope.$on( "$routeChangeStart", function(event, next, current) {
     var path = $location.path();
     if(path === "/" || path === "/home"){
@@ -10,6 +11,13 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
     }
     else {
       document.getElementById("mobile-menu-btn").style.position = "relative";
+    }
+
+    if(path.indexOf("admin") >= 0 || path.indexOf("rsvp") >= 0) {
+      document.getElementById("top-navbar").classList.remove("transparent-navbar");
+    }
+    else {
+      document.getElementById("top-navbar").classList.add("transparent-navbar");
     }
   });
 

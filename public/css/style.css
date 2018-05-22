@@ -3,7 +3,7 @@
 :root {
   --black: #000000;
   --very_light_gray: #F0F0F0;
-  --light_gray: #E0E0E0;
+  --light_gray: #C0C0C0;
   --medium_gray: #B0B0B0;
   --medium_dark_gray: #808080;
   --dark_gray: #404040;
@@ -13,6 +13,27 @@
 
 body {
   font-family: 'Fenix', serif;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+p {
+  font-size: 16px;
+}
+
+a:hover {
+  color: var(--medium_gray);
+}
+
+a:focus {
+  color: white;
 }
 
 md-list-item .md-button {
@@ -35,10 +56,19 @@ md-menu-content * {
   color: var(--dark_gray) !important;
 }
 
+md-tab-item {
+  color: white !important;
+  font-size: 19px !important;
+}
+
 td, th {
   vertical-align: middle !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+tr:hover {
+  background-color: rgba(0,0,0,0) !important;
 }
 
 input[name=search] {
@@ -87,7 +117,7 @@ input[name=search]:focus {
 }
 
 .rsvp-btn {
-  font-size: 30px;
+  font-size: 40px;
   color: white;
   margin-top: 30px;
   border: 1px solid white;
@@ -99,6 +129,17 @@ input[name=search]:focus {
 
 .rsvp-btn:hover{
   background: rgba(255, 255, 255, 0.3);
+}
+
+.max-width-container {
+  margin-top: 60px !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 15px auto 15px auto;
+  padding: 15px;
+  color: white !important;
+  overflow: hidden;
 }
 
 .elevated-box {
@@ -118,6 +159,11 @@ input[name=search]:focus {
 .hoverable-edit:hover {
   color:blue;
   cursor:pointer;
+}
+
+.transparent-input {
+  background: transparent;
+  color: white;
 }
 
 .is-table-row {
@@ -279,14 +325,14 @@ span.psw {
     padding-top: 16px;
 }
 
-.info-tabs {
-  box-shadow: 3px 3px 8px 4px var(--light_gray);
-}
-
 .event-info-container {
-  background-color:white;
   margin: 0;
   width: 100%;
+}
+
+.transparent-container {
+  background: transparent !important;
+  color: white !important;
 }
 
 .registry-link {
@@ -294,8 +340,11 @@ span.psw {
   vertical-align: middle;
   max-width: 500px;
   min-height: 250px;
+  border-radius: 10px;
+  margin: 10px;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
+  background-color: rgba(255,255,255,0.5);
 }
 
 .registry-link:hover {
@@ -426,19 +475,34 @@ html, body, .ng-scope, .container-fluid, .row {
 
 .navbar {
     overflow: hidden;
-    background-color: var(--very_light_gray);
+    background-color: var(--light_gray);
     z-index: 3;
     width: 100%;
     margin: 0;
 }
 
-.navbar a {
+.navbar-link {
     float: left;
-    font-size: 16px;
-    color: var(--medium_dark_gray);
+    font-size: 19px;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    -webkit-transition: 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: 0.3 s;
+    height: 50px;
+}
+
+.navbar-link:hover {
+    font-size: 23px;
+    color: var(--dark_gray);
+    height: 50px;
+    text-decoration: none;
+}
+
+.transparent-navbar {
+  position: absolute;
+  background: transparent;
 }
 
 .dropdown {
@@ -500,6 +564,7 @@ html, body, .ng-scope, .container-fluid, .row {
 }
 
 .home-box-a {
+    font-size: 20px;
     text-decoration: none !important;
     -webkit-transition-duration: 0.2s; /* Safari */
     transition-duration: 0.2s;
@@ -513,9 +578,27 @@ html, body, .ng-scope, .container-fluid, .row {
 .home-box-dark {
   color: var(--dark_gray);
   background-color: var(--champagne);
-  text-align:center;
-  padding:50px 80px;
   text-align: center;
+  padding: 50px 80px;
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+}
+
+.home-box-dark:hover {
+  background-color: var(--very_light_gray);
+}
+
+.home-box-bottom {
+  color: var(--dark_gray);
+  background-color: var(--champagne);
+  text-align :center;
+  padding: 5px 80px;
+  font-size: 15px;
+}
+
+.home-box-bottom p {
+  padding: 5px 0px 5px 0px;
+  margin: 0;
 }
 
 .home-box-light {
@@ -523,6 +606,12 @@ html, body, .ng-scope, .container-fluid, .row {
   color: var(--dark_gray);
   background-color:white;
   padding:50px 80px;
+  -webkit-transition-duration: 0.3s; /* Safari */
+  transition-duration: 0.3s;
+}
+
+.home-box-light:hover {
+  background-color: var(--very_light_gray);
 }
 
 .spaced-heading {
@@ -547,18 +636,19 @@ html, body, .ng-scope, .container-fluid, .row {
 .bg-img {
   background-image: url('../img/home_background.jpg');
   height: 100vh;
+  background-position: top;
 }
 
 .bg-img-2 {
   background-image: url("../img/home_background2.jpg");
-  min-height: 400px;
-  opacity: 0.65;
+  min-height: 600px;
+  /*opacity: 0.65;*/
 }
 
 .bg-img-3 {
   background-image: url("../img/home_background3.jpg");
-  min-height: 400px;
-  opacity: 0.65;
+  min-height: 600px;
+  /*opacity: 0.65;*/
 }
 
 @media only screen and (max-device-width: 1024px) {
@@ -571,7 +661,7 @@ html, body, .ng-scope, .container-fluid, .row {
 .caption {
   position: absolute;
   left: 0;
-  top: 50%;
+  bottom: 10%;
   width: 100%;
   text-align: center;
 }
@@ -580,21 +670,41 @@ html, body, .ng-scope, .container-fluid, .row {
   position: absolute;
   color: white;
   left: 0;
-  top: 40%;
+  top: 60%;
   width: 100%;
   text-align: center;
 }
 
-.expand-down-btn {
+.rsvp-caption h1 {
+  font-size: 50px;
+  color: white;
+}
+
+.rsvp-caption p {
+  font-size: 20px;
+}
+
+.expand-btn {
   background-color: transparent;
   border: none;
   color: white;
-  font-size: 30px;
-  margin-top: 110px;
+  font-size: 50px;
   width: 40px;
   text-align: center;
   transition: 0.2s ease;
   outline-style: none;
+}
+
+.expand-up-btn {
+    margin-top: 80px;
+}
+
+.expand-down-btn {
+    margin-top: 30px;
+}
+
+.expand-up-btn:hover {
+  padding-bottom: 20px;
 }
 
 .expand-down-btn:hover {
@@ -658,9 +768,9 @@ div.panel {
 #info-outer {
   height: 440px;
 	padding: 20px;
-	/*border: 2px solid #CCC;*/
 	margin-bottom: 20px;
-	background-color:#FFF }
+}
+
 .map-canvas { height: 400px
 }
 @media all and (max-width: 991px) {
@@ -671,7 +781,9 @@ div.panel {
   margin: 20px;
 }
 
-
+.guest-stats {
+  background-color: var(--very_light_gray);
+}
 
 #mobile-menu-btn {
     display: none;
@@ -693,6 +805,21 @@ div.panel {
   margin: 43px 0px 43px 0px;
 }
 
+#admin-btn {
+  color: white;
+  font-size: 19px;
+}
+
+#ceremonyMap, #receptionMap {
+  color: black;
+}
+
+.background-container {
+  background-image: url("../img/stay_background.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
 @media only screen and (max-device-width: 1024px) {
   .navbar {
     display: none;
@@ -711,4 +838,9 @@ div.panel {
     height: 45px;
     margin-left: 0;
   }
+
+  .rsvp-caption {
+    top: 35% !important;
+  }
+
 }

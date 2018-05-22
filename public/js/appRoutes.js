@@ -6,7 +6,7 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             templateUrl: 'views/home.html',
             controller: 'HomeController'
         })
-        .when('/information', {
+        .when('/details', {
             templateUrl: 'views/information.html',
             controller: 'InformationController'
         })
@@ -18,7 +18,7 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             templateUrl: 'views/registry.html',
             controller: 'RegistryController'
         })
-        .when('/guests', {
+        .when('/admin/guests', {
             templateUrl: 'views/guest.html',
             controller: 'GuestController'
         })
@@ -39,17 +39,17 @@ angular.module('appRoutes', ['ngRoute']).config(['$routeProvider', '$locationPro
             controller: 'LoginCtrl',
             controllerAs: 'vm'
         })
-        .when('/register', {
+        .when('/admin/register', {
             templateUrl: 'views/register.html',
             controller: 'RegisterCtrl',
             controllerAs: 'vm'
         })
-        .when('/profile', {
+        .when('/admin/profile', {
             templateUrl: 'views/profile.html',
             controller: 'ProfileCtrl',
             controllerAs: 'vm'
         })
-        .when('/songlist', {
+        .when('/admin/songlist', {
             templateUrl: 'views/songlist.html',
             controller: 'SongListController'
         });

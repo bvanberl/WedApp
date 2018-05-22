@@ -1,4 +1,5 @@
-<md-content md-theme="wedappTheme" class="elevated-box">
+<md-content md-theme="wedappTheme" class="background-container">
+  <md-content class="max-width-container">
     <div class="container-no-padding">
       <div class="row">
         <div class="col-sm-8 col-lg-10">
@@ -7,7 +8,7 @@
         <div class="col-sm-4 col-lg-2 center-item">
           <div ng-show="isLoggedIn">
             <br/>
-            <button ng-click="openNewInnModal($event)" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> NEW INN</button>
+            <button ng-click="openNewInnModal($event)" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> <b>NEW INN</b></button>
           </div>
         </div>
       </div>
@@ -36,4 +37,5 @@
         </tbody>
       </table>
     </div>
+  </md-content>
 </md-content>

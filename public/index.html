@@ -65,33 +65,33 @@
 
 <md-content  md-theme="wedappTheme" ng-controller="NavCtrl" ng-init="affixMobileMenuBtn()">
 
-  <div class="navbar">
-    <a href="/">HOME</a>
-    <a href="/information">INFO</a>
-    <a href="/stay">STAY</a>
-    <a href="/registry">REGISTRY</a>
-    <a href="/songs">SONGS</a>
+  <div class="navbar transparent-navbar" id="top-navbar">
+    <a class="navbar-link" href="/">HOME</a>
+    <a class="navbar-link" href="/details">DETAILS</a>
+    <a class="navbar-link" href="/stay">STAY</a>
+    <a class="navbar-link" href="/registry">REGISTRY</a>
+    <a class="navbar-link" href="/songs">SONGS</a>
     <div class="login-btn">
-      <a ng-show="!isLoggedIn" href="/login">LOG IN</a>
+      <a class="navbar-link" ng-show="!isLoggedIn" href="/login">LOG IN</a>
     </div>
     <div class="dropdown">
       <md-menu md-position-mode="target-right target">
-        <md-button ng-show="isLoggedIn" ng-mouseenter="$mdMenu.open()">
+        <md-button ng-show="isLoggedIn" ng-mouseenter="$mdMenu.open()" id="admin-btn">
           ADMIN
           <i class="fa fa-caret-down"></i>
         </md-button>
         <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
           <md-menu-item>
-            <md-button ng-href="/profile">VIEW PROFILE</md-button>
+            <md-button ng-href="/admin/profile">VIEW PROFILE</md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-href="/register">NEW PROFILE</md-button>
+            <md-button ng-href="/admin/register">NEW PROFILE</md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-href="/guests">GUESTS</md-button>
+            <md-button ng-href="/admin/guests">GUESTS</md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button ng-href="/songlist">SONG REQUESTS</md-button>
+            <md-button ng-href="/admin/songlist">SONG REQUESTS</md-button>
           </md-menu-item>
           <md-divider></md-divider>
           <md-menu-item>
@@ -113,7 +113,7 @@
               <a href="/">HOME</a>
             </md-button>
             <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-              <a href="/information">INFO</a>
+              <a href="/details">DETAILS</a>
             </md-button>
             <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
               <a href="/stay">STAY</a>
@@ -137,22 +137,22 @@
               <md-menu-content width="4">
                 <md-menu-item>
                   <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                    <a href="/profile">VIEW PROFILE</a>
+                    <a href="/admin/profile">VIEW PROFILE</a>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                    <a href="/register">NEW PROFILE</a>
+                    <a href="/admin/register">NEW PROFILE</a>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                    <a href="/guests">GUESTS</a>
+                    <a href="/admin/guests">GUESTS</a>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="toggle()" class="md-primary" hide-gt-md>
-                    <a href="/songlist">SONG REQUESTS</a>
+                    <a href="/admin/songlist">SONG REQUESTS</a>
                   </md-button>
                 </md-menu-item>
                 <md-menu-divider></md-menu-divider>
