@@ -825,7 +825,7 @@ div.panel {
 }
 
 .background-container {
-  background-image: url("../img/stay_background.jpg");
+  background-image: url("../img/general_background.jpg");
   background-size: cover;
   height: 100vh;
 }
