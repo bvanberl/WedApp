@@ -84,7 +84,7 @@ input[name=search] {
     font-size: 20px;
     padding: 12px 20px 12px 50px !important;
     margin-bottom: 0 !important;
-    background-image: url("../img/search_icon.png");
+    background-image: url("/images/search_icon.png");
     background-size: contain;
     background-repeat: no-repeat;
     -webkit-transition: width 0.4s ease-in-out;
@@ -143,6 +143,7 @@ input[name=search]:focus {
   margin-top: 60px !important;
   background-color: rgba(0, 0, 0, 0.4) !important;
   border-radius: 10px;
+  border: 1px solid var(--champagne);
   max-width: 1200px;
   margin: 15px auto 15px auto;
   padding: 15px;
@@ -642,18 +643,18 @@ html, body, .ng-scope, .container-fluid, .row {
 }
 
 .bg-img {
-  background-image: url('../img/home_background.jpg');
+  background-image: url('/images/home_background.jpg');
   height: 100vh;
   background-position: 50% 5%;
 }
 
 .bg-img-2 {
-  background-image: url("../img/home_background2.jpg");
+  background-image: url("/images/home_background2.jpg");
   min-height: 600px;
 }
 
 .bg-img-3 {
-  background-image: url("../img/home_background3.jpg");
+  background-image: url("/images/home_background3.jpg");
   min-height: 600px;
 }
 
@@ -825,7 +826,7 @@ div.panel {
 }
 
 .background-container {
-  background-image: url("../img/general_background.jpg");
+  background-image: url("/images/general_background.jpg");
   background-size: cover;
   height: 100vh;
 }

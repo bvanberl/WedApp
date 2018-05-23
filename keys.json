@@ -1,7 +1,7 @@
 {
-  "mongoHost": "35.188.98.102",
-  "mongoPort": "27017",
-  "mongoDatabase": "admin",
-  "mongoUser": "root",
+  "mongoHost": "ds131511.mlab.com",
+  "mongoPort": "31511",
+  "mongoDatabase": "wedapp",
+  "mongoUser": "blakeandolivia",
   "mongoPass": "bermuda1"
 }

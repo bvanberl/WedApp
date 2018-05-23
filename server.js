@@ -34,11 +34,11 @@ const dbPort = nconf.get('mongoPort');
 const databaseName = nconf.get('mongoDatabase');
 
 let uri = `mongodb://${user}:${pass}@${host}:${dbPort}`;
-if (nconf.get('mongoDatabase')) {
-  uri = `${uri}/${nconf.get('mongoDatabase')}`;
+if (databaseName) {
+  uri = `${uri}/${databaseName}`;
 }
 var db = require('./config/db');
-mongoose.connect(db.url, function(err) {
+mongoose.connect(uri, function(err) {
     if (err) {
       console.log(err);
       throw err;
@@ -53,6 +53,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for
+app.use('/images', express.static(__dirname + '/public/img'));
 app.use(function(req, res, next) { //allow cross origin requests
         res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
         res.header("Access-Control-Allow-Origin", "http://localhost");
