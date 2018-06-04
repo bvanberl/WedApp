@@ -12,12 +12,24 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
     else {
       document.getElementById("mobile-menu-btn").style.position = "relative";
     }
-
-    if(path.indexOf("admin") >= 0 || path.indexOf("rsvp") >= 0) {
-      document.getElementById("top-navbar").classList.remove("transparent-navbar");
+    var navLinks = document.getElementsByClassName("navbar-link");
+    if(path.indexOf("rsvp") >= 0) {
+      for (var i = 0; i < navLinks.length; i++ ) {
+        navLinks[i].style.color = "black";
+      }
+      document.getElementById("admin-btn").style.color = "black";
     }
     else {
-      document.getElementById("top-navbar").classList.add("transparent-navbar");
+      for (var i = 0; i < navLinks.length; i++ ) {
+        navLinks[i].style.color = "white";
+      }
+      document.getElementById("admin-btn").style.color = "white";
+    }
+    if(path.indexOf("rsvp") >= 0) {
+
+    }
+    else {
+
     }
   });
 

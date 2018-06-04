@@ -32,14 +32,13 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
 
     // Get sum of number of guests attending.
     $scope.getGuestCounts = function(){
+      $scope.numAttending = 0;
+      $scope.numChildrenMeals = 0;
+      $scope.numVegMeals = 0;
       if(Object.keys( $scope.guests ).length > 0) {
         for(i = 0; i < $scope.guests.length; i++)
         {
           if($scope.guests[i].responded){
-            console.log($scope.guests[i]);
-            $scope.numAttending = 0;
-            $scope.numChildrenMeals = 0;
-            $scope.numVegMeals = 0;
             $scope.numAttending += $scope.guests[i].numAdults;
             $scope.numAttending += $scope.guests[i].numChildren;
             $scope.numChildren += $scope.guests[i].numChildrenMeals;
@@ -78,6 +77,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           numAdults: g.numAdults,
           numChildren: g.numChildren,
           numChildrenMeals: g.numChildrenMeals,
+          numVegMeals: g.numVegMeals,
           code: g.authCode
         },
         controller: UpdateGuestDialogController,
@@ -105,6 +105,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
 
     // Update the guest with data returned from hiding the modal.
     $scope.updateGuest = function(guestData){
+      console.log(guestData);
       Guest.update(guestData)
         .then(function (response) {
           get(); // Refresh table
@@ -178,12 +179,13 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           $scope.inumchildrenmeals = 0;
         }
         var guestData =
-          '{"name":"' + $scope.iguestname + '",' +
+          '{"_id":"' + $scope.iid + '",' +
+          '"name":"' + $scope.iguestname + '",' +
           '"responded":"' + $scope.irespondedflag + '",' +
           '"numAdults":"' + $scope.inumadults + '",' +
-          '"numAdults":"' + $scope.inumchildren + '",' +
-          '"numChildren":"' + $scope.inumchildrenmeals + '",' +
-          '"numChildMeals":"' + $scope.idietaryrestrictions + '",' +
+          '"numChildren":"' + $scope.inumchildren + '",' +
+          '"numChildMeals":"' + $scope.inumchildrenmeals + '",' +
+          '"numVegMeals":"' + $scope.inumvegmeals + '",' +
           '"authCode":"' + code + '"' +
         '}'; // The guest data
         $mdDialog.hide(guestData);
@@ -191,13 +193,14 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     }
 
 
-    function UpdateGuestDialogController($scope, $mdDialog, id, name, responded, numAdults, numChildren, numChildrenMeals, code) {
+    function UpdateGuestDialogController($scope, $mdDialog, id, name, responded, numAdults, numChildren, numChildrenMeals, numVegMeals, code) {
       $scope.iid = id;
       $scope.iguestname = name;
       $scope.irespondedflag = responded;
       $scope.inumadults = numAdults;
       $scope.inumchildren = numChildren;
       $scope.inumchildrenmeals = numChildrenMeals;
+      $scope.inumvegmeals = numVegMeals;
       $scope.code = code;
       $scope.hide = function() {
         $mdDialog.hide();
@@ -220,9 +223,9 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           '"name":"' + $scope.iguestname + '",' +
           '"responded":"' + $scope.irespondedflag + '",' +
           '"numAdults":"' + $scope.inumadults + '",' +
-          '"numAdults":"' + $scope.inumchildren + '",' +
-          '"numChildren":"' + $scope.inumchildrenmeals + '",' +
-          '"numChildMeals":"' + $scope.idietaryrestrictions + '",' +
+          '"numChildren":"' + $scope.inumchildren + '",' +
+          '"numChildMeals":"' + $scope.inumchildrenmeals + '",' +
+          '"numVegMeals":"' + $scope.inumvegmeals + '",' +
           '"authCode":"' + code + '"' +
         '}'; // The guest data
         $mdDialog.hide(guestData);

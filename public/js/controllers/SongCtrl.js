@@ -10,7 +10,6 @@ angular.module('SongCtrl',[]).controller('SongController', ['$scope', '$rootScop
   };
 
   $scope.onKeywordsChangedEvent = function() {
-      console.log($scope.search_terms)
     Song.getSongs($scope.search_terms, $scope.input_type)
         .then(function (response) {
           $scope.results = response.data.results;
@@ -25,17 +24,29 @@ angular.module('SongCtrl',[]).controller('SongController', ['$scope', '$rootScop
       .then(function (response) {
         $scope.search_terms = "";
         $scope.onKeywordsChangedEvent();
-
-        // Display success dialog
-        $mdDialog.show(
-          $mdDialog.alert()
-            .parent(angular.element(document.querySelector('#song-search-bar')))
-            .clickOutsideToClose(true)
-            .title('Song requested!')
-            .textContent('Your song request was recorded. It may play at the wedding!')
-            .ariaLabel('Song requested')
-            .ok('Done')
-        );
+        if(response.status === 200) {
+          // Display success dialog
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.querySelector("song-modal-parent")))
+              .clickOutsideToClose(true)
+              .title('Song requested!')
+              .textContent('Your song request was successful! Feel free to request more.')
+              .ariaLabel('Song requested')
+              .ok('Done')
+          );
+        }
+        else {
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.querySelector("song-modal-parent")))
+              .clickOutsideToClose(true)
+              .title('Song request unsuccessful!')
+              .textContent('Something went wrong. Try again later!')
+              .ariaLabel('Song request unuccessful')
+              .ok('OK')
+          );
+        }
       }, function (error) {
         $scope.status = 'Unable to create new song request: ' + error.message;
       });

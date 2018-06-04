@@ -1,5 +1,5 @@
-<md-content layout-padding md-theme="wedappTheme">
-  <div class="elevated-box">
+<md-content class="rsvp-background-container">
+  <div class="translucent-box">
     <h1>RSVP</h1>
     <form name="rsvpForm">
       <p>Enter your unique guest code as it appears on your wedding invitation.</p>
@@ -14,10 +14,10 @@
       </md-input-container>
       <p>Will you be attending the wedding?</p>
       <md-radio-group ng-model="isAttending" ng-change="expand()">
-        <md-radio-button ng-value="true" aria-label="Yes">
+        <md-radio-button class="custom-radio" ng-value="true" aria-label="Yes">
           YES
         </md-radio-button>
-        <md-radio-button ng-value="false" aria-label="No">
+        <md-radio-button class="custom-radio" ng-value="false" aria-label="No">
           NO
         </md-radio-button>
       </md-radio-group>
@@ -106,7 +106,7 @@
         </md-input-container>
       </div>
       <br>
-      <md-button class="md-raised md-accent" id="submit-rsvp" type="submit" ng-click="submit()" ng-disabled="(detailsForm.$invalid && isAttending) || rsvpForm.$invalid"><h3>Submit</h3></md-button>
+      <md-button class="md-raised md-accent rsvp-submit-btn" id="submit-rsvp" type="submit" ng-click="submit()" ng-disabled="(detailsForm.$invalid && isAttending) || rsvpForm.$invalid">Submit</md-button>
     </form>
   </div>
 </md-content>

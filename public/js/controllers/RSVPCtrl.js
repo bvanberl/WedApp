@@ -54,7 +54,6 @@ angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPControll
     // Attempt to RSVP this guest.
     Guest.rsvp(guestData)
       .then(function (response) {
-          console.log(response);
           if(response.status === 200) {
             if(response.data.message == "SUCCESS"){
               // Show confirm dialog.

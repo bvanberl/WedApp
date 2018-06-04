@@ -1,13 +1,13 @@
 <md-content class="background-container">
   <md-content class="max-width-container">
-    <h1>Song requests</h1>
+    <h1 id="song-modal-parent">Song requests</h1>
     <p>
-      Suggest some songs to be played at the reception! Type in the box below to search for songs. You can search by song name or artist.
+      Suggest some songs to be played at the dance! Type in the box below to search for songs. You can search by song name or artist.
     </p>
     <p>
       Search by: </br>
-      <input type="radio" ng-model="input_type" value="track" ng-click="onKeywordsChangedEvent()"> Song Name </br>
-      <input type="radio" ng-model="input_type" value="artist" ng-click="onKeywordsChangedEvent()"> Artist
+      <input type="radio" ng-model="input_type" value="track" ng-click="onKeywordsChangedEvent()"><i> Song Name</i></br>
+      <input type="radio" ng-model="input_type" value="artist" ng-click="onKeywordsChangedEvent()"><i> Artist</i>
     </p>
     <div class="search-bar">
       <input type="text" name="search" ng-model="search_terms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search" id="song-search-bar">

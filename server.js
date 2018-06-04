@@ -176,7 +176,6 @@ router.route('/pictures')
     .post(function(req, res) {
         var picture = new Picture();      // create a new instance of the picture model
         picture.filename = req.body.filename;
-        console.log(req.body);
         picture.thumbFilename = picture.filename.replace('.','_thumb.');
         picture.save(function(err) {
             if (err)
@@ -379,7 +378,6 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
                       });
                     }
                     else {
-                      console.log(docs[0]);
                       Song.findById(docs[0]._id, function(err, song) {
                           if (err)
                               res.send(err);
@@ -499,7 +497,6 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
       router.route('/login')
         .post(function(req, res) {
           passport.authenticate('local', function(err, user, info){
-            console.log(user.email);
             var token;
             // If Passport throws/catches an error
             if (err) {
