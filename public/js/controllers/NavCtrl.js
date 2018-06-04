@@ -12,6 +12,8 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
     else {
       document.getElementById("mobile-menu-btn").style.position = "relative";
     }
+
+    // Change colour of font in navbar if on RSVP
     var navLinks = document.getElementsByClassName("navbar-link");
     if(path.indexOf("rsvp") >= 0) {
       for (var i = 0; i < navLinks.length; i++ ) {
@@ -24,12 +26,6 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
         navLinks[i].style.color = "white";
       }
       document.getElementById("admin-btn").style.color = "white";
-    }
-    if(path.indexOf("rsvp") >= 0) {
-
-    }
-    else {
-
     }
   });
 

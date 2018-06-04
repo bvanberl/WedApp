@@ -170,7 +170,7 @@ md-radio-button.md-checked.custom-radio .md-off {
 
 .translucent-box {
   background-color: rgba(255, 255, 255, 0.85);
-  max-width: 1050px;
+  max-width: 950px;
   padding: 15px;
   margin: 60px 30px 15px auto;
   border-radius: 10px;
@@ -858,7 +858,6 @@ div.panel {
 .background-container {
   background-image: url("/images/general_background.jpg");
   background-size: cover;
-  background-position: 50% 5%;
   height: 100vh;
   padding: 5px;
 }
@@ -866,7 +865,6 @@ div.panel {
 .rsvp-background-container {
   background-image: url("/images/rsvp_background.jpg");
   background-size: cover;
-  background-position: 50% 60%;
   height: 100vh;
   padding: 5px;
 }
@@ -898,6 +896,15 @@ div.panel {
 
   .rsvp-caption {
     top: 35% !important;
+  }
+
+  .rsvp-background-container {
+    position: absolute;
+    top: 0;
+  }
+
+  .translucent-box {
+    margin: 85px auto 15px auto;
   }
 
 }
