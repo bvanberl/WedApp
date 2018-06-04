@@ -13,6 +13,14 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
       document.getElementById("mobile-menu-btn").style.position = "relative";
     }
 
+    // Change navbar if in admin panel
+    if(path.indexOf("admin") >= 0 || path.indexOf("rsvp") >= 0) {
+      document.getElementById("top-navbar").classList.remove("transparent-navbar");
+    }
+    else {
+      document.getElementById("top-navbar").classList.add("transparent-navbar");
+    }
+
     // Change colour of font in navbar if on RSVP
     var navLinks = document.getElementsByClassName("navbar-link");
     if(path.indexOf("rsvp") >= 0) {
