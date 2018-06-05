@@ -40,7 +40,7 @@ angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope'
     }
 
     $scope.scrollToTop = function() {
-      document.querySelector('.navbar').scrollIntoView({
+      document.querySelector('.bg-img').scrollIntoView({
         behavior: 'smooth',
         block: "start",
         inline: "nearest"

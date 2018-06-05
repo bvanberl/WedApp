@@ -98,6 +98,17 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
       Guest.create(guestData)
         .then(function (response) {
           get(); // Refresh table
+          if(response.status !== 200) {
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector("guest-card")))
+                .clickOutsideToClose(true)
+                .title('Guest not added!')
+                .textContent('Something went wrong. Please try again!')
+                .ariaLabel('Guest not added')
+                .ok('OK')
+            );
+          }
         }, function (error) {
           $scope.status = 'Unable to create new guest: ' + error.message;
         }); // Add new guest to database.
@@ -177,10 +188,10 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           $scope.inumadults = 0;       // If response not received, assume 0 people are in attendance
           $scope.inumchildren = 0;
           $scope.inumchildrenmeals = 0;
+          $scope.inumvegmeals = 0;
         }
         var guestData =
-          '{"_id":"' + $scope.iid + '",' +
-          '"name":"' + $scope.iguestname + '",' +
+          '{"name":"' + $scope.iguestname + '",' +
           '"responded":"' + $scope.irespondedflag + '",' +
           '"numAdults":"' + $scope.inumadults + '",' +
           '"numChildren":"' + $scope.inumchildren + '",' +
@@ -230,10 +241,6 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
         '}'; // The guest data
         $mdDialog.hide(guestData);
       };
-
-      $scope.onKeywordsChangedEvent = function() {
-
-      }
     }
 
 

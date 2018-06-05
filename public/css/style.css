@@ -693,7 +693,7 @@ html, body, .ng-scope, .container-fluid, .row {
   position: absolute;
   color: white;
   left: 0;
-  top: 60%;
+  top: 57%;
   width: 100%;
   text-align: center;
 }
@@ -892,10 +892,6 @@ div.panel {
     position: absolute;
     top: 0;
     padding-top: 30px;
-  }
-
-  .rsvp-caption {
-    top: 35% !important;
   }
 
   .rsvp-background-container {
