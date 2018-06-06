@@ -14,7 +14,7 @@ angular.module('NavCtrl', []).controller('NavCtrl',['$scope', '$rootScope', '$wi
     }
 
     // Change navbar if in admin panel
-    if(path.indexOf("admin") >= 0 || path.indexOf("rsvp") >= 0) {
+    if(path.indexOf("admin") >= 0) {
       document.getElementById("top-navbar").classList.remove("transparent-navbar");
     }
     else {
