@@ -172,7 +172,7 @@ md-radio-button.md-checked.custom-radio .md-off {
   background-color: rgba(255, 255, 255, 0.85);
   max-width: 950px;
   padding: 15px;
-  margin: 60px 30px 15px auto;
+  margin: 60px auto 15px auto;
   border-radius: 10px;
 }
 
