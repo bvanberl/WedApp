@@ -8,5 +8,6 @@ module.exports = mongoose.model('Guest', {
     numChildren : {type : Number, default: 0},
     numChildrenMeals : {type : Number, default: 0},
     numVegMeals : {type : Number, default: 0},
+    comments : {type: String, default: ''},
     authCode : {type: String, unique : true, default: '0000', dropDups: true}
 });

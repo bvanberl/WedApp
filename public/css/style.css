@@ -190,6 +190,18 @@ md-radio-button.md-checked.custom-radio .md-off {
   cursor:pointer;
 }
 
+.hoverable-comment {
+  color: black;
+}
+
+.hoverable-comment:hover {
+  color: green;
+}
+
+.mat-tooltip.tooltip {
+  font-size: 18px !important;
+}
+
 .transparent-input {
   background: transparent;
   color: white;
@@ -226,12 +238,12 @@ md-radio-button.md-checked.custom-radio .md-off {
 }
 
 .hoverable-tr {
-  -webkit-transition-duration: 0.2s; /* Safari */
-  transition-duration: 0.2s;
+  -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s;
 }
 
 .hoverable-tr:hover {
-  background-color: var(--very_light_gray);
+  background-color: var(--very_light_gray) !important;
 }
 
 .sort-icon {
@@ -350,7 +362,7 @@ input[type=text], input[type=password] {
 /* Center the image and position the close button */
 .imgcontainer {
     text-align: center;
-    margin: 24px 0 12px 0;
+    margin: 2px 0 2px 0;
     position: relative;
 }
 

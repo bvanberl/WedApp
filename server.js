@@ -94,6 +94,7 @@ router.route('/guests')
         guest.numChildren = req.body.numChildren;
         guest.numChildrenMeals = req.body.numChildrenMeals;
         guest.numVegMeals = req.body.numVegMeals;
+        guest.comments = req.body.comments;
         guest.authCode = req.body.authCode;
         // save the guest and check for errors
         guest.save(function(err) {
@@ -129,6 +130,7 @@ router.route('/guests/:guest_id') // Get a guest by his/her ID
             guest.numChildren = req.body.numChildren;
             guest.numChildrenMeals = req.body.numChildrenMeals;
             guest.numVegMeals = req.body.numVegMeals;
+            guest.comments = req.body.comments;
             guest.authCode = req.body.authCode;
             guest.save(function(err) {
                 if (err)
