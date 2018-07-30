@@ -15,35 +15,34 @@
   <md-card id="guest-card">
     <md-card-content class="guest-stats">
       <h3>Quick stats</h3>
-      <p>Number of guests attending: {{numAttending}}</p>
+      <p>Total number of guests attending: {{numAdultsAttending + numChildrenAttending}}</p>
+      <p>Number of adults attending: {{numAdultsAttending}}</p>
+      <p>Number of children attending: {{numChildrenAttending}}</p>
       <p>Number of children meals: {{numChildrenMeals}}</p>
       <p>Number of vegetarian meals: {{numVegMeals}}</p>
     </md-card-content>
   </md-card>
-  <br/>
   <div class="search-bar">
-    <input type="text" name="search" ng-model="searchTerms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search">
-    <div class="search-results-container">
-
-    </div>
+    <input type="text" name="search" ng-model="searchTerms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search by name">
   </div>
+  <md-divider></md-divider>
   <div class="row">
     <div class="col-lg-12">
       <div class="table-responsive">
         <table class="table table-hover">
-          <thead align="center">
-            <th>Name</th>
-            <th>Responded?</th>
-            <th># Adults</th>
-            <th># Children</th>
-            <th># Children Meals</th>
-            <th># Vegetarian Meals</th>
+          <thead align="center" id="guest-header">
+            <th>Name<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'name')"></span></th>
+            <th>Responded?<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'responded')"</th>
+            <th># Adults<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numAdults')"</th>
+            <th># Children<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numChildren')"</th>
+            <th># Children Meals<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numChildMeals')"</th>
+            <th># Vegetarian Meals<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numVegMeals')"</th>
             <th>Guest Code</th>
             <th></th>
             <th></th>
           </thead>
           <tbody>
-            <tr ng-repeat="g in guests" ng-show="g.name.toUpperCase().indexOf(searchTerms.toUpperCase()) >= 0">
+            <tr ng-repeat="g in guests" ng-show="g.name.toUpperCase().indexOf(searchTerms.toUpperCase()) >= 0" class="hoverable-tr">
               <div>
               <td>{{ g.name }}</td>
               <td>{{ dispResponse(g.responded) }}</td>

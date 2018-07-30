@@ -1,4 +1,4 @@
-angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestController', ['$scope', '$rootScope', '$location', 'Guest', '$mdDialog', 'authentication', function($scope, $rootScope, $location, Guest, $mdDialog, authentication) {
+angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestController', ['$scope', '$rootScope', '$location', '$window', 'Guest', '$mdDialog', 'authentication', function($scope, $rootScope, $location, $window, Guest, $mdDialog, authentication) {
 
     get();
     $rootScope.isLoggedIn = authentication.isLoggedIn();
@@ -10,7 +10,8 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     $scope.irespondedflag = false;
     $scope.inumattending = 0;
     $scope.modal = document.getElementById('new-guest-modal');
-    $scope.numAttending = 0;
+    $scope.numAdultsAttending = 0;
+    $scope.numChildrenAttending = 0;
     $scope.numChildrenMeals = 0;
     $scope.numVegMeals = 0;
     $scope.searchTerms = "";
@@ -26,22 +27,23 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     };
 
     // If guest is attending, display number of people coming
-    $scope.dispNum = function(responded, numAttending){
-      return (responded ? numAttending : "unknown");
+    $scope.dispNum = function(responded, x){
+      return (responded ? x : "?");
     };
 
     // Get sum of number of guests attending.
     $scope.getGuestCounts = function(){
-      $scope.numAttending = 0;
+      $scope.numAdultsAttending = 0;
+      $scope.numChildrenAttending = 0;
       $scope.numChildrenMeals = 0;
       $scope.numVegMeals = 0;
       if(Object.keys( $scope.guests ).length > 0) {
         for(i = 0; i < $scope.guests.length; i++)
         {
           if($scope.guests[i].responded){
-            $scope.numAttending += $scope.guests[i].numAdults;
-            $scope.numAttending += $scope.guests[i].numChildren;
-            $scope.numChildren += $scope.guests[i].numChildrenMeals;
+            $scope.numAdultsAttending += $scope.guests[i].numAdults;
+            $scope.numChildrenAttending += $scope.guests[i].numChildren;
+            $scope.numChildrenMeals += $scope.guests[i].numChildrenMeals;
             $scope.numVegMeals += $scope.guests[i].numVegMeals;
           }
         }
@@ -143,11 +145,50 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     function sortGuests(prop, asc) {
         $scope.guests = $scope.guests.sort(function(a, b) {
         if (asc) {
+            console.log("Asc" + a[prop] + "," + b[prop]);
             return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
         } else {
+          console.log("Desc" + a[prop] + "," + b[prop]);
             return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
         }
     });
+  }
+
+  /*
+  Sort guests by the property specified and update the icon of the element that called this function.
+  */
+  $scope.sortGuestsByProperty = function(ev, prop) {
+    if(ev.target.classList.contains('glyphicon-sort')){
+      if(prop == "name"){
+        sortGuests(prop, true);
+      }
+      else {
+        sortGuests(prop, false);
+      }
+      $(event.target).removeClass('glyphicon-sort');
+      $(event.target).addClass('glyphicon-sort-by-attributes');
+    }
+    else if(ev.target.classList.contains('glyphicon-sort-by-attributes')){
+      if(prop == "name"){
+        sortGuests(prop, false);
+      }
+      else {
+        sortGuests(prop, true);
+      }
+      $(event.target).removeClass('glyphicon-sort-by-attributes');
+      $(event.target).addClass('glyphicon-sort-by-attributes-alt');
+    }
+    else if(ev.target.classList.contains('glyphicon-sort-by-attributes-alt')){
+      if(prop == "name"){
+        sortGuests(prop, true);
+      }
+      else {
+        sortGuests(prop, false);
+      }
+      $(event.target).removeClass('glyphicon-sort-by-attributes-alt');
+      $(event.target).addClass('glyphicon-sort-by-attributes');
+    }
+
   }
 
   $scope.delete = function(id) {
@@ -242,6 +283,5 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
         $mdDialog.hide(guestData);
       };
     }
-
 
 }]);

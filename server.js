@@ -40,8 +40,10 @@ if (databaseName) {
 var db = require('./config/db');
 mongoose.connect(uri, function(err) {
     if (err) {
-      console.log(err);
       throw err;
+    }
+    else {
+      console.log("SUCCESS");
     }
 });
 var port = process.env.PORT || 8080; // set port
@@ -269,8 +271,9 @@ router.route('/pictures/:picture_id') // Get a picture by its ID
         // get all the inns (accessed at GET http://localhost:8080/api/inns)
         .get(function(req, res) {
             Inn.find(function(err, inns) {
-                if (err)
+                if (err){
                     res.send(err);
+                  }
                 res.json(inns);
             });
         });
