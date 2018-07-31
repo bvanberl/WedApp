@@ -1,6 +1,7 @@
 // MODULES =================================================
 var express        = require('express');
 var app            = express();
+var path = require('path');
 var nconf       = require('nconf');
 var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
@@ -17,6 +18,10 @@ var auth = jwt({
   secret: 'MY_SECRET',
   userProperty: 'payload'
 });
+const enforceHTTPS = (req, res, next) => {
+  if (req.headers['x-forwarded-proto'] === 'https') return next();
+  return res.redirect(301, `https://${path.join(req.hostname, req.url)}`);
+};
 
 // COLLECTIONS ================================================
 var Guest     = require('./app/models/guest');
@@ -50,6 +55,7 @@ var port = process.env.PORT || 8080; // set port
 
 require('./config/passport');
 
+app.use(enforceHTTPS);
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
