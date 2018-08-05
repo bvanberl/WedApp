@@ -17,6 +17,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     $scope.numVegMeals = 0;
     $scope.searchTerms = "";
     $scope.sortColumn = "name";
+    $scope.sortAsc = true;
 
     $rootScope.logout = function(){
       authentication.logout();
@@ -135,7 +136,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
         Guest.get()
             .then(function (response) {
                 $scope.guests = response.data;
-                sortGuests($scope.sortColumn, true);
+                sortGuests($scope.sortColumn, $scope.sortAsc);
                 $scope.getGuestCounts();
             }, function (error) {
                 $scope.status = 'Unable to load guest data: ' + error.message;
@@ -154,7 +155,6 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           console.log("Desc" + a[prop] + "," + b[prop]);
             return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
         }
-        $scope.sortColumn = prop;
     });
   }
 
@@ -162,12 +162,15 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
   Sort guests by the property specified and update the icon of the element that called this function.
   */
   $scope.sortGuestsByProperty = function(ev, prop) {
+    $scope.sortColumn = prop;
     if(ev.target.classList.contains('glyphicon-sort')){
       if(prop == "name"){
         sortGuests(prop, true);
+        $scope.sortAsc = true;
       }
       else {
         sortGuests(prop, false);
+        $scope.sortAsc = false;
       }
       $(event.target).removeClass('glyphicon-sort');
       $(event.target).addClass('glyphicon-sort-by-attributes');
@@ -175,9 +178,11 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     else if(ev.target.classList.contains('glyphicon-sort-by-attributes')){
       if(prop == "name"){
         sortGuests(prop, false);
+        $scope.sortAsc = false;
       }
       else {
         sortGuests(prop, true);
+        $scope.sortAsc = true;
       }
       $(event.target).removeClass('glyphicon-sort-by-attributes');
       $(event.target).addClass('glyphicon-sort-by-attributes-alt');
@@ -185,9 +190,11 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     else if(ev.target.classList.contains('glyphicon-sort-by-attributes-alt')){
       if(prop == "name"){
         sortGuests(prop, true);
+        $scope.sortAsc = true;
       }
       else {
         sortGuests(prop, false);
+        $scope.sortAsc = false;
       }
       $(event.target).removeClass('glyphicon-sort-by-attributes-alt');
       $(event.target).addClass('glyphicon-sort-by-attributes');
