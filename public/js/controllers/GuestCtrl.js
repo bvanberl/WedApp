@@ -135,7 +135,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
         Guest.get()
             .then(function (response) {
                 $scope.guests = response.data;
-                sortGuests(sortColumn, true);
+                sortGuests($scope.sortColumn, true);
                 $scope.getGuestCounts();
             }, function (error) {
                 $scope.status = 'Unable to load guest data: ' + error.message;
