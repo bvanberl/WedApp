@@ -16,6 +16,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     $scope.numChildrenMeals = 0;
     $scope.numVegMeals = 0;
     $scope.searchTerms = "";
+    $scope.sortColumn = "name";
 
     $rootScope.logout = function(){
       authentication.logout();
@@ -134,7 +135,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
         Guest.get()
             .then(function (response) {
                 $scope.guests = response.data;
-                sortGuests('name', true);
+                sortGuests(sortColumn, true);
                 $scope.getGuestCounts();
             }, function (error) {
                 $scope.status = 'Unable to load guest data: ' + error.message;
@@ -153,6 +154,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           console.log("Desc" + a[prop] + "," + b[prop]);
             return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
         }
+        $scope.sortColumn = prop;
     });
   }
 
