@@ -21,6 +21,22 @@ angular.module('SongListCtrl', ['ngMaterial']).controller('SongListController', 
       }
     };
 
+    // Download song table as .xlsx document
+    $scope.downloadAsXLSX = function(){
+      TableExport(document.getElementsByTagName("table"), {
+          headers: true,
+          footers: true,
+          formats: ['xlsx'],
+          filename: 'song_requests',
+          bootstrap: true,
+          exportButtons: true,
+          position: 'well',                         // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+          ignoreRows: null,
+          ignoreCols: null,
+          trimWhitespace: true
+      });
+    }
+
     // Get all songs
     function get() {
         Song.get()

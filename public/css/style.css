@@ -223,6 +223,20 @@ md-radio-button.md-checked.custom-radio .md-off {
   height: 100%;
 }
 
+.xlsx-btn {
+  color: #007c47; /* Microsoft Excel green */
+  border-color: #007c47;
+  height: 56px;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.xlsx-btn:hover {
+  color: #007c47; /* Microsoft Excel green */
+  border-color: #007c47;
+}
+
 .guest-data {
   padding: 3px !important;
   margin: 0 !important;
@@ -763,7 +777,7 @@ html, body, .ng-scope, .container-fluid, .row {
 }
 
 .expand-down-btn {
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .expand-up-btn:hover {

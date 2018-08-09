@@ -14,7 +14,8 @@
     "angular-cycle-gallery": "^3.0.6",
     "ng-file-upload": "^12.0.0",
     "components-font-awesome": "^4.7.0",
-    "ng-image-gallery": "latest"
+    "ng-image-gallery": "latest",
+    "tableexport.js": "5.0.2"
   },
   "resolutions": {
     "angular-bootstrap": "^1.3.1"

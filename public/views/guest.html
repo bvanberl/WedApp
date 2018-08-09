@@ -22,21 +22,29 @@
       <p>Number of vegetarian meals: {{numVegMeals}}</p>
     </md-card-content>
   </md-card>
-  <div class="search-bar">
-    <input type="text" name="search" ng-model="searchTerms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search by name">
+  <div class="container-no-padding">
+    <div class="row">
+      <div class="col-xs-12 col-md-9 search-bar">
+        <input type="text" name="search" ng-model="searchTerms" ng-change="onKeywordsChangedEvent()" placeholder="Type to search by name">
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <button ng-click="downloadAsXLSX()" class="btn btn-default btn-block xlsx-btn"><span class="glyphicon glyphicon-download-alt"></span><b>&nbsp;&nbsp;&nbsp;.XLSX</b></button>
+      </div>
+    </div>
   </div>
   <md-divider></md-divider>
   <div class="row">
     <div class="col-lg-12">
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover" id="guest-table">
           <thead align="center" id="guest-header">
             <th>Name<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'name')"></span></th>
-            <th>Responded?<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'responded')"</th>
-            <th># Adults<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numAdults')"</th>
-            <th># Children<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numChildren')"</th>
-            <th># Children Meals<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numChildMeals')"</th>
-            <th># Vegetarian Meals<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numVegMeals')"</th>
+            <th>Responded?<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'responded')"></span></th>
+            <th># Adults<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numAdults')"></span></th>
+            <th># Children<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numChildren')"></span></th>
+            <th># Children Meals<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numChildMeals')"></span></th>
+            <th># Vegetarian Meals<span class="glyphicon glyphicon-sort sort-icon" ng-click="sortGuestsByProperty($event, 'numVegMeals')"></span></th>
+            <th style="display:none">Comment</th>
             <th>Guest Code</th>
             <th></th>
             <th></th>
@@ -54,6 +62,7 @@
               <td>{{ dispNum(g.responded, g.numChildren) }}</td>
               <td>{{ dispNum(g.responded, g.numChildrenMeals) }}</td>
               <td>{{ dispNum(g.responded, g.numVegMeals) }}</td>
+              <td style="display:none">{{ g.comments }}</td>
               <td>{{ g.authCode }}</td>
               <td class="min-size"><span class="glyphicon glyphicon-edit hoverable-edit" ng-click="openUpdateGuestModal($event, $index)">&nbsp;</td>
               <td class="min-size"><span class="table-remove glyphicon glyphicon-remove hoverable-remove" ng-click="delete(g._id)"></td>

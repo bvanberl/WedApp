@@ -131,6 +131,22 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
         }); // Add new guest to database.
     }
 
+    // Download guest table as .xlsx document
+    $scope.downloadAsXLSX = function(){
+      TableExport(document.getElementsByTagName("table"), {
+          headers: true,
+          footers: true,
+          formats: ['xlsx'],
+          filename: 'guest_list',
+          bootstrap: true,
+          exportButtons: true,
+          position: 'well',                         // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+          ignoreRows: null,
+          ignoreCols: null,
+          trimWhitespace: true
+      });
+    }
+
     // Get all guests
     function get() {
         Guest.get()
@@ -149,10 +165,8 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     function sortGuests(prop, asc) {
         $scope.guests = $scope.guests.sort(function(a, b) {
         if (asc) {
-            console.log("Asc" + a[prop] + "," + b[prop]);
             return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
         } else {
-          console.log("Desc" + a[prop] + "," + b[prop]);
             return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
         }
     });

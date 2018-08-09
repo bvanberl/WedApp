@@ -15,6 +15,12 @@ angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope'
       var now = new Date().getTime(); // Current datetime.
       var deltaT = $scope.countdowndate - now; // Get time between now and the wedding.
 
+      // If the countdown is finished, write nothing.
+      if (deltaT < 0) {
+        $scope.timeleft = "";
+        return;
+      }
+
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(deltaT / 86400000);
       var hours = Math.floor((deltaT % 86400000) / 3600000);
@@ -23,12 +29,6 @@ angular.module('HomeCtrl', ['ngAnimate']).controller('HomeController', ['$scope'
 
       var innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s "; // Update time left in the view
       $scope.timeleft = innerHTML;
-
-      // If the count down is finished, write some text
-      if (deltaT < 0) {
-        clearInterval(x);
-        $scope.timeleft = "The countdown is over";
-      }
     }
 
     $scope.expandDown = function() {

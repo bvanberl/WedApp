@@ -47,9 +47,6 @@ mongoose.connect(uri, function(err) {
     if (err) {
       throw err;
     }
-    else {
-      console.log("SUCCESS");
-    }
 });
 var port = process.env.PORT || 8080; // set port
 
