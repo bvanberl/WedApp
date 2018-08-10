@@ -10,6 +10,10 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
     $scope.icomments = "";
     $scope.irespondedflag = false;
     $scope.inumattending = 0;
+    $scope.inumadults = 0;
+    $scope.inumchildren = 0;
+    $scope.inumchildrenmeals = 0;
+    $scope.inumvegmeals = 0;
     $scope.modal = document.getElementById('new-guest-modal');
     $scope.numAdultsAttending = 0;
     $scope.numChildrenAttending = 0;
@@ -242,6 +246,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           $scope.inumadults = 0;       // If response not received, assume 0 people are in attendance
           $scope.inumchildren = 0;
           $scope.inumchildrenmeals = 0;
+          $scope.inumvegmeals = 0;
         }
       }
       $scope.submitData = function() {
@@ -267,6 +272,7 @@ angular.module('GuestCtrl', ['ngMaterial', 'ngMessages']).controller('GuestContr
           '"comments":"' + $scope.icomments + '",' +
           '"authCode":"' + code + '"' +
         '}'; // The guest data
+        console.log(guestData);
         $mdDialog.hide(guestData);
       };
     }

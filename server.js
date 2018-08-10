@@ -95,7 +95,7 @@ router.route('/guests')
         guest.responded = req.body.responded;
         guest.numAdults = req.body.numAdults;
         guest.numChildren = req.body.numChildren;
-        guest.numChildrenMeals = req.body.numChildrenMeals;
+        guest.numChildrenMeals = req.body.numChildMeals;
         guest.numVegMeals = req.body.numVegMeals;
         guest.comments = req.body.comments;
         guest.authCode = req.body.authCode;
@@ -131,7 +131,7 @@ router.route('/guests/:guest_id') // Get a guest by his/her ID
             guest.responded = req.body.responded;
             guest.numAdults = req.body.numAdults;
             guest.numChildren = req.body.numChildren;
-            guest.numChildrenMeals = req.body.numChildrenMeals;
+            guest.numChildrenMeals = req.body.numChildMeals;
             guest.numVegMeals = req.body.numVegMeals;
             guest.comments = req.body.comments;
             guest.authCode = req.body.authCode;
@@ -163,7 +163,7 @@ router.route('/guests/rsvp')
             guest1.responded = true;
             guest1.numAdults = req.body.numAdults;
             guest1.numChildren = req.body.numChildren;
-            guest1.numChildrenMeals = req.body.numChildrenMeals;
+            guest1.numChildrenMeals = req.body.numChildMeals;
             guest1.numVegMeals = req.body.numVegMeals;
             guest1.authCode = req.body.authCode;
             guest1.save(function(err) {
