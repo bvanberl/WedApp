@@ -1,9 +1,10 @@
-angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPController', ['$scope', '$rootScope', '$window', '$location', '$mdDialog', 'Guest', 'authentication', function($scope, $rootScope, $window, $location, $mdDialog, Guest, authentication) {
+angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPController', ['$scope', '$rootScope', '$window', '$location', '$mdDialog', 'Guest', 'RSVP_DEADLINE', 'authentication', function($scope, $rootScope, $window, $location, $mdDialog, Guest, RSVP_DEADLINE, authentication) {
 
   // Initialization
   $rootScope.isLoggedIn = authentication.isLoggedIn();
   $scope.panel = document.getElementById("guest-info");
   $scope.isAttending = false;
+  $scope.rsvpDeadline = RSVP_DEADLINE.getTime();
 
   $rootScope.logout = function(){
     authentication.logout();
@@ -25,6 +26,21 @@ angular.module('RSVPCtrl', ['ngAnimate', 'ngMessages']).controller('RSVPControll
   }
 
   $scope.submit = function($event) {
+
+    var now = new Date().getTime();
+    if(now > $scope.rsvpDeadline) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#rsvp-btn')))
+          .clickOutsideToClose(true)
+          .title('RSVP unsuccessful!')
+          .textContent('The deadline to RSVP online has passed. Please contact the bride or groom directly.')
+          .ariaLabel('RSVP Unuccessful')
+          .ok('OK')
+      );
+      return;
+    }
+
     // Assemble guest's RSVP information
     if($scope.potGuest.authCode) {
       var guestData;

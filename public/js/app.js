@@ -25,3 +25,4 @@ var app = angular.module('wedapp',
   'FileUploadCtrl']);
 
 app.value('WEDDING_DATE', new Date("Sep 8, 2018 11:00:00"));
+app.value('RSVP_DEADLINE', new Date("Aug 11, 2018 0:00:00"));
